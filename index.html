@@ -1,1242 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Synergy-GTS | IT Consulting & Enterprise Architecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
-        }
-        .gradient-accent {
-            background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
-        }
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-        }
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .text-gradient {
-            background: linear-gradient(90deg, #60a5fa 0%, #22d3ee 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .grid-pattern {
-            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 40px 40px;
-        }
-        .solution-card {
-            background: linear-gradient(145deg, rgba(30, 58, 95, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Floating WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            background-color: #25D366;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background-color: #128C7E;
-        }
-        /* Chat bubble animation */
-        .chat-bubble {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: white;
-            border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #075E54;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 999;
-            animation: pulse 2s infinite;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-            100% { opacity: 0.8; transform: scale(1); }
-        }
-        @media (max-width: 640px) {
-            .chat-bubble { display: none; }
-            .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synergy-GTS | Technology We Build. Magic You Notice.</title>
+  <meta name="description" content="Synergy-GTS — Empowering Canadian &amp; North American Enterprises Through Intelligent Digital Transformation. SAP Consulting, Enterprise Architecture &amp; Software Engineering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body>
 
-    <!-- Floating WhatsApp & Chat Widgets -->
-    <div class="chat-bubble" onclick="openWhatsApp()">
-        💬 Chat with us
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Synergy-GTS">
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="industries.html" class="nav-link">Industries</a>
+        <a href="case-studies.html" class="nav-link">Case Studies</a>
+        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="contact.html" class="btn-primary">Request Consultation</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="mobile-menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="industries.html">Industries</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn-primary">Request Consultation</a>
+      </div>
     </div>
-    <div class="whatsapp-float" onclick="openWhatsApp()">
-        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+  </nav>
+
+  <!-- ======================== 1. HERO ======================== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="images/hero-bg.png" alt="Synergy-GTS Hero Background">
     </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-particles">
+      <div class="particle" style="left:8%;top:15%;width:4px;height:4px;animation-delay:0s;animation-duration:8s;"></div>
+      <div class="particle" style="left:22%;top:72%;width:3px;height:3px;animation-delay:1.2s;animation-duration:6s;"></div>
+      <div class="particle" style="left:45%;top:10%;width:5px;height:5px;animation-delay:2.4s;animation-duration:10s;"></div>
+      <div class="particle" style="left:67%;top:35%;width:3px;height:3px;animation-delay:0.8s;animation-duration:7s;"></div>
+      <div class="particle" style="left:85%;top:58%;width:4px;height:4px;animation-delay:3.1s;animation-duration:9s;"></div>
+      <div class="particle" style="left:12%;top:48%;width:3px;height:3px;animation-delay:1.7s;animation-duration:8s;"></div>
+      <div class="particle" style="left:55%;top:82%;width:5px;height:5px;animation-delay:4.2s;animation-duration:7s;"></div>
+      <div class="particle" style="left:78%;top:20%;width:3px;height:3px;animation-delay:0.4s;animation-duration:11s;"></div>
+      <div class="particle" style="left:33%;top:55%;width:4px;height:4px;animation-delay:2.8s;animation-duration:6s;"></div>
+      <div class="particle" style="left:92%;top:75%;width:3px;height:3px;animation-delay:1.5s;animation-duration:9s;"></div>
+      <div class="particle" style="left:5%;top:88%;width:4px;height:4px;animation-delay:3.6s;animation-duration:8s;"></div>
+      <div class="particle" style="left:60%;top:5%;width:3px;height:3px;animation-delay:0.6s;animation-duration:10s;"></div>
+      <div class="particle" style="left:40%;top:40%;width:5px;height:5px;animation-delay:2.0s;animation-duration:7s;"></div>
+      <div class="particle" style="left:72%;top:90%;width:4px;height:4px;animation-delay:4.8s;animation-duration:6s;"></div>
+      <div class="particle" style="left:18%;top:25%;width:3px;height:3px;animation-delay:3.3s;animation-duration:9s;"></div>
+    </div>
+    <div class="hero-content fade-in">
+      <div class="hero-badge">Since 2010 — Trusted by enterprises worldwide</div>
+      <h1>Technology We Build. <span class="text-gradient-light">Magic You Notice.</span></h1>
+      <p>Empowering Canadian &amp; North American enterprises through intelligent digital transformation, SAP consulting, and enterprise architecture that delivers measurable business outcomes.</p>
+      <div class="hero-buttons">
+        <a href="contact.html" class="btn-primary">Request Consultation</a>
+        <a href="services.html" class="btn-secondary">Explore Services</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
-                    <div class="w-10 h-10 rounded-lg gradient-accent flex items-center justify-center">
-                        <i data-lucide="network" class="w-6 h-6 text-white"></i>
-                    </div>
-                    <span class="text-2xl font-bold text-white tracking-tight">Synergy<span class="text-cyan-400">-GTS</span></span>
-                </div>
-                
-                <div class="hidden lg:flex items-center space-x-8">
-                    <button onclick="showPage('solutions')" class="text-slate-300 hover:text-white transition-colors font-medium">Solutions</button>
-                    <button onclick="showPage('industries')" class="text-slate-300 hover:text-white transition-colors font-medium">Industries</button>
-                    <button onclick="showPage('services')" class="text-slate-300 hover:text-white transition-colors font-medium">Services</button>
-                    <button onclick="showPage('about')" class="text-slate-300 hover:text-white transition-colors font-medium">About</button>
-                    <button onclick="showPage('resources')" class="text-slate-300 hover:text-white transition-colors font-medium">Resources</button>
-                    <button onclick="showPage('careers')" class="text-slate-300 hover:text-white transition-colors font-medium">Careers</button>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <button onclick="showPage('contact')" class="hidden md:block px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-full transition-all transform hover:scale-105">
-                        Contact Us
-                    </button>
-                    <button onclick="toggleMobileMenu()" class="lg:hidden text-white p-2">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
-                </div>
-            </div>
+  <!-- ======================== 2. ABOUT PREVIEW ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="grid-image fade-in-left">
+          <img src="images/about-bg.png" alt="About Synergy-GTS">
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-slate-900 border-t border-slate-800">
-            <div class="px-4 pt-2 pb-6 space-y-1">
-                <button onclick="showPage('solutions')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Solutions</button>
-                <button onclick="showPage('industries')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Industries</button>
-                <button onclick="showPage('services')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Services</button>
-                <button onclick="showPage('about')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">About</button>
-                <button onclick="showPage('resources')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Resources</button>
-                <button onclick="showPage('careers')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Careers</button>
-                <button onclick="showPage('contact')" class="block w-full text-left px-3 py-3 text-cyan-400 font-semibold">Contact Us</button>
-            </div>
+        <div class="grid-content fade-in-right">
+          <div class="section-label">Know About Synergy GTS</div>
+          <h2>Your Trusted Partner in Enterprise Transformation</h2>
+          <p>Synergy-GTS is a leading Canadian technology consulting firm specializing in SAP solutions, cloud integration, and enterprise architecture. Since our founding in 2010, we have helped organizations across North America unlock the full potential of their digital investments.</p>
+          <p>Our team of certified consultants brings deep industry expertise and a client-first approach to every engagement, ensuring solutions that are tailored, scalable, and built for long-term success.</p>
+          <a href="about.html" class="link-arrow">Learn More About Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
-    </nav>
-
-    <!-- HOME PAGE -->
-    <div id="home" class="page-section">
-        <!-- Hero Section -->
-        <section class="relative min-h-screen gradient-hero grid-pattern flex items-center pt-20 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900"></div>
-            <div class="absolute top-20 right-0 w-1/2 h-full opacity-20">
-                <div class="absolute inset-0 bg-gradient-to-l from-cyan-500/30 to-transparent blur-3xl"></div>
-            </div>
-            
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="animate-fade-in">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-cyan-400 text-sm font-medium mb-6">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                            Enterprise Technology Solutions
-                        </div>
-                        <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
-                            Transform Your <br>
-                            <span class="text-gradient">Digital Future</span>
-                        </h1>
-                        <p class="text-xl text-slate-300 mb-8 leading-relaxed max-w-lg">
-                            Unify IT strategy, enterprise architecture, and software engineering into a single coherent vision. We turn technology complexity into competitive advantage.
-                        </p>
-                        <div class="flex flex-wrap gap-4">
-                            <button onclick="showPage('solutions')" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-full transition-all transform hover:scale-105 flex items-center gap-2">
-                                Explore Solutions <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                            </button>
-                            <button onclick="showPage('contact')" class="px-8 py-4 border-2 border-slate-600 hover:border-cyan-400 text-white font-semibold rounded-full transition-all hover:bg-slate-800">
-                                Talk to an Expert
-                            </button>
-                        </div>
-                    </div>
-                    <div class="relative hidden lg:block">
-                        <div class="relative z-10 bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700 shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="space-y-4">
-                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                                        <i data-lucide="cloud" class="w-8 h-8 text-cyan-400 mb-2"></i>
-                                        <div class="text-white font-semibold">Cloud Architecture</div>
-                                        <div class="text-slate-400 text-sm">Scalable Infrastructure</div>
-                                    </div>
-                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                                        <i data-lucide="shield" class="w-8 h-8 text-emerald-400 mb-2"></i>
-                                        <div class="text-white font-semibold">Cybersecurity</div>
-                                        <div class="text-slate-400 text-sm">Enterprise Protection</div>
-                                    </div>
-                                </div>
-                                <div class="space-y-4 mt-8">
-                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                                        <i data-lucide="code" class="w-8 h-8 text-purple-400 mb-2"></i>
-                                        <div class="text-white font-semibold">Custom Software</div>
-                                        <div class="text-slate-400 text-sm">Bespoke Development</div>
-                                    </div>
-                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                                        <i data-lucide="git-branch" class="w-8 h-8 text-orange-400 mb-2"></i>
-                                        <div class="text-white font-semibold">DevOps</div>
-                                        <div class="text-slate-400 text-sm">CI/CD Pipelines</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent"></div>
-        </section>
-
-        <!-- AI Intelligence Section -->
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">Synergy AI. The Intelligence Layer.</h2>
-                    <p class="text-xl text-slate-600 max-w-3xl mx-auto">
-                        Built on proprietary frameworks and industry best practices, our AI-driven solutions deliver actionable intelligence — connecting critical business signals and transforming data into decisive action.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="solution-card rounded-2xl p-8 card-hover scroll-reveal">
-                        <div class="w-14 h-14 rounded-xl gradient-accent flex items-center justify-center mb-6">
-                            <i data-lucide="brain" class="w-7 h-7 text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Intelligent Automation</h3>
-                        <p class="text-slate-600 mb-4">Leverage machine learning and RPA to automate complex business processes and reduce operational overhead by up to 60%.</p>
-                        <button onclick="showPage('solutions')" class="text-cyan-600 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-                            Learn more <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="solution-card rounded-2xl p-8 card-hover scroll-reveal" style="transition-delay: 100ms;">
-                        <div class="w-14 h-14 rounded-xl bg-purple-600 flex items-center justify-center mb-6">
-                            <i data-lucide="bar-chart-3" class="w-7 h-7 text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Predictive Analytics</h3>
-                        <p class="text-slate-600 mb-4">Transform raw data into strategic insights. Our analytics platforms help you anticipate market trends and optimize decision-making.</p>
-                        <button onclick="showPage('solutions')" class="text-cyan-600 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-                            Learn more <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="solution-card rounded-2xl p-8 card-hover scroll-reveal" style="transition-delay: 200ms;">
-                        <div class="w-14 h-14 rounded-xl bg-emerald-600 flex items-center justify-center mb-6">
-                            <i data-lucide="workflow" class="w-7 h-7 text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Process Optimization</h3>
-                        <p class="text-slate-600 mb-4">Identify bottlenecks and streamline workflows with our enterprise process mining and optimization solutions.</p>
-                        <button onclick="showPage('solutions')" class="text-cyan-600 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-                            Learn more <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- News & Insights Grid -->
-        <section class="py-24 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-slate-900 mb-12 scroll-reveal">Latest Insights</h2>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover scroll-reveal">
-                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
-                            <i data-lucide="trending-up" class="w-16 h-16 text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-sm text-cyan-600 font-semibold mb-2">Industry Report</div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2">Named Leader in Enterprise Architecture 2024</h3>
-                            <p class="text-slate-600 text-sm mb-4">Synergy-GTS recognized as a leader in Gartner's Magic Quadrant for Enterprise Architecture Tools.</p>
-                            <button onclick="showPage('resources')" class="text-slate-900 font-semibold text-sm flex items-center gap-1 hover:text-cyan-600">
-                                Read report <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover scroll-reveal" style="transition-delay: 100ms;">
-                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                            <i data-lucide="database" class="w-16 h-16 text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-sm text-purple-600 font-semibold mb-2">Whitepaper</div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2">The Future of Data Architecture</h3>
-                            <p class="text-slate-600 text-sm mb-4">Explore modern data mesh and fabric architectures for enterprise-scale analytics.</p>
-                            <button onclick="showPage('resources')" class="text-slate-900 font-semibold text-sm flex items-center gap-1 hover:text-cyan-600">
-                                Download <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover scroll-reveal" style="transition-delay: 200ms;">
-                        <div class="h-48 bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center">
-                            <i data-lucide="shield-check" class="w-16 h-16 text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-sm text-emerald-600 font-semibold mb-2">Security Alert</div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2">Zero Trust Architecture Guide</h3>
-                            <p class="text-slate-600 text-sm mb-4">Implement comprehensive zero trust security frameworks for hybrid cloud environments.</p>
-                            <button onclick="showPage('resources')" class="text-slate-900 font-semibold text-sm flex items-center gap-1 hover:text-cyan-600">
-                                Read guide <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover scroll-reveal" style="transition-delay: 300ms;">
-                        <div class="h-48 bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center">
-                            <i data-lucide="rocket" class="w-16 h-16 text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-sm text-orange-600 font-semibold mb-2">Case Study</div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2">Fortune 500 Digital Transformation</h3>
-                            <p class="text-slate-600 text-sm mb-4">How we helped a global manufacturer reduce IT costs by 40% while increasing agility.</p>
-                            <button onclick="showPage('resources')" class="text-slate-900 font-semibold text-sm flex items-center gap-1 hover:text-cyan-600">
-                                View case study <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Client Logos -->
-        <section class="py-16 bg-white border-y border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <p class="text-center text-slate-500 font-medium mb-8 uppercase tracking-wider text-sm">Trusted by Industry Leaders</p>
-                <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="hexagon" class="w-8 h-8"></i> TechCorp</div>
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="triangle" class="w-8 h-8"></i> GlobalBank</div>
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="circle" class="w-8 h-8"></i> HealthPlus</div>
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="square" class="w-8 h-8"></i> RetailMax</div>
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="octagon" class="w-8 h-8"></i> EnergySys</div>
-                    <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i data-lucide="pentagon" class="w-8 h-8"></i> PharmaNet</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-24 bg-slate-900 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-cyan-900/20 to-purple-900/20"></div>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-reveal">
-                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">Ready to Transform Your Enterprise?</h2>
-                <p class="text-xl text-slate-300 mb-8">Join hundreds of organizations that have accelerated their digital transformation with Synergy-GTS.</p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="showPage('contact')" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-full transition-all transform hover:scale-105">
-                        Schedule a Consultation
-                    </button>
-                    <button onclick="showPage('solutions')" class="px-8 py-4 border-2 border-slate-600 hover:border-white text-white font-semibold rounded-full transition-all">
-                        View All Solutions
-                    </button>
-                </div>
-            </div>
-        </section>
+      </div>
+      <div class="deco-1"></div>
+      <div class="deco-2"></div>
     </div>
+  </section>
 
-    <!-- SOLUTIONS PAGE -->
-    <div id="solutions" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Our Solutions</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Comprehensive technology solutions designed to address your most complex enterprise challenges.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-3 gap-8">
-                    <!-- Enterprise Architecture -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-cyan-500">
-                        <div class="w-16 h-16 rounded-2xl bg-cyan-100 flex items-center justify-center mb-6">
-                            <i data-lucide="building-2" class="w-8 h-8 text-cyan-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Enterprise Architecture</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-500 mt-0.5"></i> TOGAF & Zachman Frameworks</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-500 mt-0.5"></i> Business Capability Mapping</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-500 mt-0.5"></i> Technology Roadmapping</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-cyan-500 mt-0.5"></i> Architecture Governance</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-cyan-500 text-cyan-600 font-semibold rounded-lg hover:bg-cyan-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-
-                    <!-- Cloud Solutions -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-purple-500">
-                        <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6">
-                            <i data-lucide="cloud-cog" class="w-8 h-8 text-purple-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Cloud Architecture</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-purple-500 mt-0.5"></i> Multi-Cloud Strategy (AWS/Azure/GCP)</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-purple-500 mt-0.5"></i> Cloud Migration & Modernization</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-purple-500 mt-0.5"></i> Kubernetes & Containerization</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-purple-500 mt-0.5"></i> Serverless Architecture</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-purple-500 text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-
-                    <!-- Software Engineering -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-emerald-500">
-                        <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mb-6">
-                            <i data-lucide="code-2" class="w-8 h-8 text-emerald-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Software Engineering</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-emerald-500 mt-0.5"></i> Custom Application Development</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-emerald-500 mt-0.5"></i> Microservices Architecture</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-emerald-500 mt-0.5"></i> API Design & Management</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-emerald-500 mt-0.5"></i> Legacy System Modernization</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-emerald-500 text-emerald-600 font-semibold rounded-lg hover:bg-emerald-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-
-                    <!-- Data Analytics -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-orange-500">
-                        <div class="w-16 h-16 rounded-2xl bg-orange-100 flex items-center justify-center mb-6">
-                            <i data-lucide="line-chart" class="w-8 h-8 text-orange-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Data & Analytics</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-orange-500 mt-0.5"></i> Data Warehousing & Lakes</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-orange-500 mt-0.5"></i> Business Intelligence</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-orange-500 mt-0.5"></i> Machine Learning Platforms</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-orange-500 mt-0.5"></i> Real-time Analytics</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-orange-500 text-orange-600 font-semibold rounded-lg hover:bg-orange-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-
-                    <!-- Cybersecurity -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-red-500">
-                        <div class="w-16 h-16 rounded-2xl bg-red-100 flex items-center justify-center mb-6">
-                            <i data-lucide="shield" class="w-8 h-8 text-red-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Cybersecurity</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-red-500 mt-0.5"></i> Security Architecture Review</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-red-500 mt-0.5"></i> Zero Trust Implementation</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-red-500 mt-0.5"></i> Compliance & Risk Management</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-red-500 mt-0.5"></i> DevSecOps Integration</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-red-500 text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-
-                    <!-- IT Consulting -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg card-hover border-t-4 border-blue-500">
-                        <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6">
-                            <i data-lucide="users" class="w-8 h-8 text-blue-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4">IT Consulting</h3>
-                        <ul class="space-y-3 text-slate-600 mb-6">
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-blue-500 mt-0.5"></i> Digital Transformation Strategy</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-blue-500 mt-0.5"></i> IT Operating Model Design</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-blue-500 mt-0.5"></i> Vendor Selection & Management</li>
-                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-blue-500 mt-0.5"></i> Agile Transformation</li>
-                        </ul>
-                        <button class="w-full py-3 border-2 border-blue-500 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 3. INDUSTRY EXPERTISE ======================== -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Industry Expertise</div>
+        <h2>Industries We Serve</h2>
+        <p>With deep domain knowledge across critical sectors, we deliver solutions that address the unique challenges and regulatory requirements of each industry.</p>
+      </div>
+      <div class="cards-grid-4">
+        <!-- Manufacturing -->
+        <div class="card fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M2 20V8l5 4V8l5 4V4h8a2 2 0 0 1 2 2v14H2z"/><path d="M17 8h1M17 12h1M17 16h1"/><path d="M2 20h20"/></svg>
+          </div>
+          <h3>Manufacturing</h3>
+          <p>Optimize production planning, supply chain management, and shop-floor operations with SAP-integrated manufacturing solutions built for scale.</p>
+        </div>
+        <!-- Energy & Utilities -->
+        <div class="card fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Energy &amp; Utilities</h3>
+          <p>Power your digital transformation with solutions for asset management, regulatory compliance, and grid modernization across the energy value chain.</p>
+        </div>
+        <!-- Retail & Distribution -->
+        <div class="card fade-in" style="animation-delay:0.3s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          </div>
+          <h3>Retail &amp; Distribution</h3>
+          <p>Deliver seamless omnichannel experiences, optimize inventory, and streamline logistics with intelligent retail platforms and distribution networks.</p>
+        </div>
+        <!-- Public Sector -->
+        <div class="card fade-in" style="animation-delay:0.4s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg>
+          </div>
+          <h3>Public Sector</h3>
+          <p>Modernize government services with secure, scalable, and citizen-centric digital platforms that meet stringent compliance and accessibility standards.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- INDUSTRIES PAGE -->
-    <div id="industries" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Industries We Serve</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Specialized solutions tailored to the unique challenges of your industry.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('finance')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="landmark" class="w-8 h-8 text-blue-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Financial Services</h3>
-                            <p class="text-slate-600 mb-4">Digital banking solutions, regulatory compliance systems, and high-frequency trading platforms built for security and scale.</p>
-                            <div class="flex items-center text-blue-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('healthcare')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="heart-pulse" class="w-8 h-8 text-emerald-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Healthcare & Life Sciences</h3>
-                            <p class="text-slate-600 mb-4">HIPAA-compliant systems, electronic health records integration, and pharmaceutical supply chain solutions.</p>
-                            <div class="flex items-center text-emerald-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('retail')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="shopping-cart" class="w-8 h-8 text-purple-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Retail & E-Commerce</h3>
-                            <p class="text-slate-600 mb-4">Omnichannel platforms, inventory management systems, and customer experience optimization.</p>
-                            <div class="flex items-center text-purple-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('manufacturing')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-orange-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="factory" class="w-8 h-8 text-orange-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Manufacturing</h3>
-                            <p class="text-slate-600 mb-4">Industry 4.0 implementations, IoT integration, and smart factory automation solutions.</p>
-                            <div class="flex items-center text-orange-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('energy')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="zap" class="w-8 h-8 text-yellow-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Energy & Utilities</h3>
-                            <p class="text-slate-600 mb-4">Grid modernization, renewable energy management systems, and operational technology security.</p>
-                            <div class="flex items-center text-yellow-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg cursor-pointer" onclick="showIndustryDetail('government')">
-                        <div class="absolute inset-0 bg-gradient-to-r from-slate-600 to-slate-800 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="p-8">
-                            <div class="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <i data-lucide="building" class="w-8 h-8 text-slate-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Government & Public Sector</h3>
-                            <p class="text-slate-600 mb-4">Citizen service platforms, cybersecurity hardening, and legacy system modernization.</p>
-                            <div class="flex items-center text-slate-600 font-semibold">
-                                Explore solutions <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 4. SERVICES HIGHLIGHTS ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">What We Do</div>
+        <h2>Services We Deliver</h2>
+      </div>
+      <div class="cards-grid-4">
+        <!-- SAP S/4HANA -->
+        <div class="card fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon icon-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M20 15h2M9 2v2M9 20v2M2 9h2M20 9h2"/></svg>
+          </div>
+          <h3>SAP S/4HANA</h3>
+          <p>End-to-end S/4HANA implementation, migration, and optimization services for next-gen enterprise performance.</p>
+        </div>
+        <!-- Cloud Integration -->
+        <div class="card fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon icon-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+          </div>
+          <h3>Cloud Integration</h3>
+          <p>Seamless cloud connectivity and hybrid integration strategies that unify your enterprise ecosystem across platforms.</p>
+        </div>
+        <!-- BTP Development -->
+        <div class="card fade-in" style="animation-delay:0.3s;">
+          <div class="card-icon icon-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>BTP Development</h3>
+          <p>Custom SAP Business Technology Platform applications and extensions that amplify your core SAP investments.</p>
+        </div>
+        <!-- Analytics & BI -->
+        <div class="card fade-in" style="animation-delay:0.4s;">
+          <div class="card-icon icon-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          </div>
+          <h3>Analytics &amp; BI</h3>
+          <p>Data-driven insights through advanced analytics, dashboards, and business intelligence solutions for smarter decisions.</p>
+        </div>
+      </div>
+      <div class="section-footer fade-in">
+        <a href="services.html" class="btn-secondary">View All Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
     </div>
+  </section>
 
-    <!-- SERVICES PAGE -->
-    <div id="services" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Our Services</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">End-to-end technology services from strategy to implementation and beyond.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="space-y-24">
-                    <!-- Strategy -->
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="order-2 lg:order-1">
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-100 text-cyan-700 text-sm font-semibold mb-4">
-                                Phase 1
-                            </div>
-                            <h2 class="text-3xl font-bold text-slate-900 mb-4">Strategy & Advisory</h2>
-                            <p class="text-lg text-slate-600 mb-6">We help you define your technology vision and roadmap. Our consultants work with C-suite executives to align IT strategy with business objectives.</p>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-cyan-500"></i>
-                                    Technology Roadmap Development
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-cyan-500"></i>
-                                    Digital Maturity Assessment
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-cyan-500"></i>
-                                    IT Investment Optimization
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-cyan-500"></i>
-                                    Merger & Acquisition Tech Due Diligence
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="order-1 lg:order-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl p-8 text-white">
-                            <i data-lucide="compass" class="w-16 h-16 mb-4 opacity-80"></i>
-                            <h3 class="text-2xl font-bold mb-2">Strategic Planning</h3>
-                            <p class="text-cyan-100">Chart your course to digital excellence with data-driven insights and industry benchmarks.</p>
-                        </div>
-                    </div>
-
-                    <!-- Design -->
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl p-8 text-white">
-                            <i data-lucide="pen-tool" class="w-16 h-16 mb-4 opacity-80"></i>
-                            <h3 class="text-2xl font-bold mb-2">Solution Design</h3>
-                            <p class="text-purple-100">Architectural excellence that balances innovation with reliability and security.</p>
-                        </div>
-                        <div>
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold mb-4">
-                                Phase 2
-                            </div>
-                            <h2 class="text-3xl font-bold text-slate-900 mb-4">Architecture & Design</h2>
-                            <p class="text-lg text-slate-600 mb-6">Our architects design scalable, secure, and future-proof systems. We create detailed technical specifications and architectural blueprints.</p>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-500"></i>
-                                    System Architecture Design
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-500"></i>
-                                    API Strategy & Design
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-500"></i>
-                                    Data Architecture & Modeling
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-500"></i>
-                                    Security Architecture Review
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Implementation -->
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="order-2 lg:order-1">
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-700 text-sm font-semibold mb-4">
-                                Phase 3
-                            </div>
-                            <h2 class="text-3xl font-bold text-slate-900 mb-4">Implementation & Delivery</h2>
-                            <p class="text-lg text-slate-600 mb-6">Agile development teams deliver high-quality software using modern methodologies. We ensure on-time, on-budget delivery with transparent reporting.</p>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
-                                    Agile Software Development
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
-                                    DevOps & CI/CD Implementation
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
-                                    Quality Assurance & Testing
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
-                                    Legacy System Migration
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="order-1 lg:order-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-8 text-white">
-                            <i data-lucide="code" class="w-16 h-16 mb-4 opacity-80"></i>
-                            <h3 class="text-2xl font-bold mb-2">Development</h3>
-                            <p class="text-emerald-100">Clean code, robust testing, and continuous delivery for reliable software products.</p>
-                        </div>
-                    </div>
-
-                    <!-- Support -->
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div class="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-8 text-white">
-                            <i data-lucide="headphones" class="w-16 h-16 mb-4 opacity-80"></i>
-                            <h3 class="text-2xl font-bold mb-2">Managed Services</h3>
-                            <p class="text-orange-100">24/7 support and continuous improvement to maximize your technology investments.</p>
-                        </div>
-                        <div>
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 text-sm font-semibold mb-4">
-                                Phase 4
-                            </div>
-                            <h2 class="text-3xl font-bold text-slate-900 mb-4">Support & Optimization</h2>
-                            <p class="text-lg text-slate-600 mb-6">Our managed services ensure your systems run smoothly. We provide 24/7 monitoring, maintenance, and continuous improvement.</p>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-orange-500"></i>
-                                    24/7 Application Support
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-orange-500"></i>
-                                    Cloud Infrastructure Management
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-orange-500"></i>
-                                    Performance Optimization
-                                </li>
-                                <li class="flex items-center gap-3 text-slate-700">
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-orange-500"></i>
-                                    Security Monitoring & Response
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 5. EXECUTIVE LEADERSHIP ======================== -->
+  <section class="dark-section">
+    <div class="pattern-bg"></div>
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label section-label-light">Leadership</div>
+        <h2 class="text-light">Executive Team</h2>
+      </div>
+      <div class="cards-grid-2">
+        <!-- Managing Director -->
+        <div class="glass-card fade-in" style="animation-delay:0.1s;">
+          <div class="glass-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Managing Director</h3>
+          <div class="glass-card-role">15+ years in SAP consulting</div>
+          <p>Visionary leader driving Synergy-GTS's strategic direction and growth across North America. With over 15 years of enterprise consulting experience, they have guided numerous Fortune 500 clients through complex SAP transformations.</p>
+        </div>
+        <!-- Director Technology & Consulting -->
+        <div class="glass-card fade-in" style="animation-delay:0.2s;">
+          <div class="glass-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Director Technology &amp; Consulting</h3>
+          <div class="glass-card-role">MBA &amp; PMP Certified</div>
+          <p>Seasoned technology executive with expertise spanning SAP S/4HANA, cloud architecture, and digital strategy. Leads the consulting practice with a focus on delivering innovative, client-centric solutions that create lasting value.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- ABOUT PAGE -->
-    <div id="about" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">About Synergy-GTS</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Building the technological foundations for tomorrow's enterprises.</p>
-                </div>
+  <!-- ======================== 6. TESTIMONIALS ======================== -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Testimonials</div>
+        <h2>What Clients Say</h2>
+      </div>
+      <div class="testimonials-slider">
+        <div class="testimonial-slides">
+          <div class="testimonial-slide fade-in active">
+            <blockquote>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32" class="testimonial-quote-icon"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+              <p>"Synergy-GTS transformed our entire SAP landscape, migrating us from legacy ECC to S/4HANA with zero downtime. Their deep understanding of manufacturing processes and commitment to quality exceeded all expectations. The project was delivered on time and under budget."</p>
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-author-name">Marcus Reinhardt</div>
+              <div class="testimonial-author-title">VP Operations, Global Manufacturing Corp</div>
             </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
-                    <div>
-                        <h2 class="text-4xl font-bold text-slate-900 mb-6">Our Story</h2>
-                        <p class="text-lg text-slate-600 mb-6">Founded in 2010, Synergy-GTS emerged from a simple belief: that technology should empower businesses, not constrain them. What started as a small team of enterprise architects has grown into a global consultancy serving Fortune 500 companies across six continents.</p>
-                        <p class="text-lg text-slate-600 mb-6">Our name reflects our core philosophy—synergy between business and technology, and a Global Technology Solutions mindset that transcends borders and industries.</p>
-                        <div class="grid grid-cols-3 gap-6 mt-8">
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-cyan-600">500+</div>
-                                <div class="text-sm text-slate-600">Projects Delivered</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-cyan-600">150+</div>
-                                <div class="text-sm text-slate-600">Expert Consultants</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold text-cyan-600">15+</div>
-                                <div class="text-sm text-slate-600">Years Experience</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl transform rotate-3 opacity-20"></div>
-                        <div class="relative bg-slate-100 rounded-2xl p-8 border border-slate-200">
-                            <div class="space-y-6">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-cyan-100 flex items-center justify-center">
-                                        <i data-lucide="target" class="w-6 h-6 text-cyan-600"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-900">Mission</h4>
-                                        <p class="text-slate-600">To bridge the gap between business strategy and technology execution.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                        <i data-lucide="eye" class="w-6 h-6 text-purple-600"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-900">Vision</h4>
-                                        <p class="text-slate-600">To be the trusted architect of digital transformation for global enterprises.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
-                                        <i data-lucide="scale" class="w-6 h-6 text-emerald-600"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-900">Values</h4>
-                                        <p class="text-slate-600">Excellence, Integrity, Innovation, and Client Success in everything we do.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Leadership -->
-                <div class="mb-24">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Leadership Team</h2>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="text-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                                AS
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900">Alex Sterling</h3>
-                            <p class="text-cyan-600 font-medium mb-2">Chief Executive Officer</p>
-                            <p class="text-slate-600 text-sm">Former CTO at Global Financial Services with 20+ years in enterprise architecture.</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-600 mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                                MC
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900">Maria Chen</h3>
-                            <p class="text-purple-600 font-medium mb-2">Chief Technology Officer</p>
-                            <p class="text-slate-600 text-sm">Cloud architecture expert and published author on distributed systems design.</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold">
-                                JR
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900">James Rodriguez</h3>
-                            <p class="text-emerald-600 font-medium mb-2">Chief Operating Officer</p>
-                            <p class="text-slate-600 text-sm">Operations expert specializing in agile transformations at scale.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- History Timeline -->
-                <div>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Our Journey</h2>
-                    <div class="relative">
-                        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-slate-200"></div>
-                        <div class="space-y-12">
-                            <div class="relative flex items-center justify-between">
-                                <div class="w-5/12 text-right pr-8">
-                                    <h4 class="text-xl font-bold text-slate-900">2010</h4>
-                                    <p class="text-slate-600">Synergy-GTS founded in San Francisco</p>
-                                </div>
-                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow"></div>
-                                <div class="w-5/12 pl-8"></div>
-                            </div>
-                            <div class="relative flex items-center justify-between">
-                                <div class="w-5/12 pr-8"></div>
-                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow"></div>
-                                <div class="w-5/12 pl-8">
-                                    <h4 class="text-xl font-bold text-slate-900">2014</h4>
-                                    <p class="text-slate-600">Expanded to Europe and Asia-Pacific</p>
-                                </div>
-                            </div>
-                            <div class="relative flex items-center justify-between">
-                                <div class="w-5/12 text-right pr-8">
-                                    <h4 class="text-xl font-bold text-slate-900">2018</h4>
-                                    <p class="text-slate-600">Launched AI & Machine Learning practice</p>
-                                </div>
-                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow"></div>
-                                <div class="w-5/12 pl-8"></div>
-                            </div>
-                            <div class="relative flex items-center justify-between">
-                                <div class="w-5/12 pr-8"></div>
-                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow"></div>
-                                <div class="w-5/12 pl-8">
-                                    <h4 class="text-xl font-bold text-slate-900">2022</h4>
-                                    <p class="text-slate-600">Recognized as Leader in EA Consulting</p>
-                                </div>
-                            </div>
-                            <div class="relative flex items-center justify-between">
-                                <div class="w-5/12 text-right pr-8">
-                                    <h4 class="text-xl font-bold text-slate-900">2024</h4>
-                                    <p class="text-slate-600">500th project milestone reached</p>
-                                </div>
-                                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow"></div>
-                                <div class="w-5/12 pl-8"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="testimonial-slide fade-in">
+            <blockquote>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32" class="testimonial-quote-icon"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+              <p>"The team at Synergy-GTS brought unparalleled SAP knowledge to our retail transformation project. Their consultants understood our complex omnichannel requirements and delivered a solution that has significantly improved our operational efficiency and customer experience."</p>
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-author-name">Isabella Martinez</div>
+              <div class="testimonial-author-title">CTO, European Retail Group</div>
             </div>
-        </section>
+          </div>
+        </div>
+        <div class="testimonial-dots">
+          <div class="testimonial-dot active"></div>
+          <div class="testimonial-dot"></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- RESOURCES PAGE -->
-    <div id="resources" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Resources</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Insights, research, and thought leadership from our experts.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Filter Tabs -->
-                <div class="flex flex-wrap justify-center gap-4 mb-12">
-                    <button class="px-6 py-2 rounded-full bg-cyan-500 text-white font-medium">All Resources</button>
-                    <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-100 font-medium transition-colors">Whitepapers</button>
-                    <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-100 font-medium transition-colors">Case Studies</button>
-                    <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-100 font-medium transition-colors">Webinars</button>
-                    <button class="px-6 py-2 rounded-full bg-white text-slate-600 hover:bg-slate-100 font-medium transition-colors">Blog</button>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Whitepaper</span>
-                            <h3 class="text-white text-xl font-bold">The State of Enterprise Architecture 2024</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">Comprehensive analysis of EA trends, frameworks, and best practices for modern enterprises.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Oct 15, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Download <i data-lucide="download" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Case Study</span>
-                            <h3 class="text-white text-xl font-bold">Global Bank Digital Transformation</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">How we helped a tier-1 bank modernize its core banking platform and reduce time-to-market by 60%.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Sep 28, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Read <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-emerald-600 to-teal-600 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Webinar</span>
-                            <h3 class="text-white text-xl font-bold">Implementing Zero Trust Security</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">On-demand webinar covering practical steps to implement zero trust architecture in hybrid environments.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Sep 10, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Watch <i data-lucide="play" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-orange-600 to-red-600 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Blog</span>
-                            <h3 class="text-white text-xl font-bold">Microservices vs Monoliths: 2024 Perspective</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">When to choose microservices and when to stick with monolithic architectures in modern software development.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Aug 22, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Read <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-slate-600 to-slate-800 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Report</span>
-                            <h3 class="text-white text-xl font-bold">Cloud Cost Optimization Guide</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">Strategies and tools to reduce cloud spending by up to 40% while maintaining performance and reliability.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Aug 15, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Download <i data-lucide="download" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
-                        <div class="h-48 bg-gradient-to-br from-yellow-600 to-orange-600 p-6 flex flex-col justify-end">
-                            <span class="text-white/80 text-sm font-medium mb-2">Case Study</span>
-                            <h3 class="text-white text-xl font-bold">Healthcare Data Platform Modernization</h3>
-                        </div>
-                        <div class="p-6">
-                            <p class="text-slate-600 mb-4">Building a HIPAA-compliant, scalable data platform for a leading hospital network serving 5M+ patients.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-slate-500">Jul 30, 2024</span>
-                                <button class="text-cyan-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-                                    Read <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-12">
-                    <button class="px-8 py-3 border-2 border-slate-300 text-slate-700 font-semibold rounded-full hover:border-cyan-500 hover:text-cyan-600 transition-all">
-                        Load More Resources
-                    </button>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 7. STATS ======================== -->
+  <section class="stats-section">
+    <div class="pattern-bg"></div>
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in" style="animation-delay:0.1s;">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item fade-in" style="animation-delay:0.2s;">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+        <div class="stat-item fade-in" style="animation-delay:0.3s;">
+          <div class="stat-number">90%</div>
+          <div class="stat-label">Client Retention</div>
+        </div>
+        <div class="stat-item fade-in" style="animation-delay:0.4s;">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Years Expertise</div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- CAREERS PAGE -->
-    <div id="careers" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Careers at Synergy-GTS</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Join a team of exceptional technologists solving the world's most complex IT challenges.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Why Join Us -->
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 rounded-2xl bg-cyan-100 flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="trophy" class="w-8 h-8 text-cyan-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Challenging Work</h3>
-                        <p class="text-slate-600">Solve complex problems for Fortune 500 companies and government agencies.</p>
-                    </div>
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="users" class="w-8 h-8 text-purple-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Collaborative Culture</h3>
-                        <p class="text-slate-600">Work with brilliant minds in an inclusive, growth-oriented environment.</p>
-                    </div>
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="trending-up" class="w-8 h-8 text-emerald-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Growth & Learning</h3>
-                        <p class="text-slate-600">Continuous learning budget, certifications, and mentorship programs.</p>
-                    </div>
-                    <div class="text-center p-6">
-                        <div class="w-16 h-16 rounded-2xl bg-orange-100 flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="globe" class="w-8 h-8 text-orange-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Global Impact</h3>
-                        <p class="text-slate-600">Work on projects that shape industries and improve lives worldwide.</p>
-                    </div>
-                </div>
-
-                <!-- Open Positions -->
-                <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Open Positions</h2>
-                <div class="space-y-4 max-w-3xl mx-auto">
-                    <div class="bg-slate-50 rounded-xl p-6 flex flex-wrap justify-between items-center gap-4 card-hover">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900">Senior Enterprise Architect</h3>
-                            <p class="text-slate-600">Remote / Hybrid · Full-time</p>
-                        </div>
-                        <button class="px-6 py-2 bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition">Apply Now</button>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-6 flex flex-wrap justify-between items-center gap-4 card-hover">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900">Cloud Solutions Architect</h3>
-                            <p class="text-slate-600">Austin, TX · Full-time</p>
-                        </div>
-                        <button class="px-6 py-2 bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition">Apply Now</button>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-6 flex flex-wrap justify-between items-center gap-4 card-hover">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900">Lead Software Engineer</h3>
-                            <p class="text-slate-600">London, UK · Full-time</p>
-                        </div>
-                        <button class="px-6 py-2 bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition">Apply Now</button>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-6 flex flex-wrap justify-between items-center gap-4 card-hover">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900">IT Strategy Consultant</h3>
-                            <p class="text-slate-600">Singapore · Full-time</p>
-                        </div>
-                        <button class="px-6 py-2 bg-cyan-500 text-white rounded-full hover:bg-cyan-400 transition">Apply Now</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 8. CANADIAN PRESENCE ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Canadian Presence</div>
+        <h2>Our Offices</h2>
+      </div>
+      <div class="cards-grid-2">
+        <!-- Toronto -->
+        <div class="card fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Toronto, Ontario</h3>
+          <p>Our headquarters serving as the central hub for all North American operations, enterprise consulting, and SAP delivery excellence.</p>
+        </div>
+        <!-- Vancouver -->
+        <div class="card fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Vancouver, British Columbia</h3>
+          <p>Our West Coast office providing expanded coverage across Western Canada and the Pacific Rim, supporting our growing client base.</p>
+        </div>
+      </div>
+      <div class="section-footer fade-in">
+        <div class="contact-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+          <a href="mailto:careers@synergygts.com">careers@synergygts.com</a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- CONTACT PAGE (custom added to ensure WhatsApp is highlighted) -->
-    <div id="contact" class="page-section hidden">
-        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-bold text-white mb-6">Contact Us</h1>
-                    <p class="text-xl text-slate-300 max-w-3xl mx-auto">Let's discuss how Synergy-GTS can accelerate your digital transformation.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-16">
-                    <div>
-                        <h2 class="text-3xl font-bold text-slate-900 mb-6">Get in touch</h2>
-                        <p class="text-lg text-slate-600 mb-8">Our experts are ready to answer your questions and discuss your enterprise needs.</p>
-                        <div class="space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-cyan-100 flex items-center justify-center">
-                                    <i data-lucide="mail" class="w-6 h-6 text-cyan-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-900">Email</h4>
-                                    <p class="text-slate-600">hello@synergygts.com</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <i data-lucide="phone" class="w-6 h-6 text-purple-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-900">Phone</h4>
-                                    <p class="text-slate-600">+1 (888) 447-9664</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 cursor-pointer" onclick="openWhatsApp()">
-                                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
-                                    <i data-lucide="message-circle" class="w-6 h-6 text-emerald-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-900">WhatsApp Chat</h4>
-                                    <p class="text-emerald-600 font-medium">Click to chat with us instantly →</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                                    <i data-lucide="map-pin" class="w-6 h-6 text-orange-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-900">Global HQ</h4>
-                                    <p class="text-slate-600">123 Innovation Drive, San Francisco, CA 94105</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 rounded-2xl p-8">
-                        <h3 class="text-2xl font-bold text-slate-900 mb-6">Send a message</h3>
-                        <form id="contactForm" class="space-y-4">
-                            <input type="text" placeholder="Full name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500">
-                            <input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500">
-                            <textarea rows="4" placeholder="How can we help?" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500"></textarea>
-                            <button type="submit" class="w-full py-3 bg-cyan-500 text-white font-semibold rounded-xl hover:bg-cyan-400 transition">Send Message</button>
-                        </form>
-                        <p class="text-sm text-slate-500 text-center mt-4">We'll respond within 24 hours</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== 9. CTA BANNER ======================== -->
+  <section class="cta-banner">
+    <div class="pattern-bg"></div>
+    <div class="container">
+      <div class="cta-content fade-in">
+        <h2>Ready to Transform Your Enterprise?</h2>
+        <p>Partner with Synergy-GTS to unlock the full potential of your SAP investments and accelerate your digital transformation journey.</p>
+        <a href="contact.html" class="btn-primary btn-lg">Contact Us Today</a>
+      </div>
     </div>
+  </section>
 
-    <script>
-        // Lucide icons initialization
-        lucide.createIcons();
+  <!-- ======================== 10. FOOTER ======================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <div class="nav-logo-text">
+              <div class="nav-logo-name">
+                <span class="logo-synergy">SYNERGY</span>
+                <span class="logo-gts">GTS</span>
+                <div class="logo-divider"></div>
+              </div>
+              <span class="nav-logo-tagline">SAP & CONSULTING</span>
+            </div>
+          </a>
+          <p>Empowering enterprises through intelligent digital transformation, SAP consulting, and enterprise architecture.</p>
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Our Services -->
+        <div class="footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="services.html">S/4HANA Implementation</a></li>
+            <li><a href="services.html">Migration &amp; Conversion</a></li>
+            <li><a href="services.html">Functional Consulting</a></li>
+            <li><a href="services.html">Cloud Integration</a></li>
+            <li><a href="services.html">BTP Development</a></li>
+            <li><a href="services.html">Treasury &amp; Risk</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Toronto, Ontario
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Vancouver, British Columbia
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+              <a href="mailto:careers@synergygts.com">careers@synergygts.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Mon-Fri 9am-6pm EST
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Synergy-GTS. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        // Page navigation logic
-        function showPage(pageId) {
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(section => {
-                section.classList.add('hidden');
-            });
-            const activePage = document.getElementById(pageId);
-            if (activePage) activePage.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (window.innerWidth < 1024) {
-                document.getElementById('mobileMenu')?.classList.add('hidden');
-            }
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function openWhatsApp() {
-            window.open('https://wa.me/18884479664?text=Hello%20Synergy-GTS%2C%20I%27d%20like%20to%20discuss%20your%20services.', '_blank');
-        }
-
-        function showIndustryDetail(industry) {
-            alert(`More details about ${industry} solutions coming soon. Please contact us for a personalized consultation.`);
-        }
-
-        // Scroll reveal animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Thank you for reaching out! A Synergy-GTS expert will contact you shortly.');
-                contactForm.reset();
-            });
-        }
-
-        // Show home by default
-        showPage('home');
-    </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

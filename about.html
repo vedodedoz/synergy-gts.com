@@ -1,109 +1,404 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>About Us | Synergy GTS</title>
-<meta name="description" content="Learn about Synergy GTS, a Canadian SAP and enterprise consulting firm delivering digital transformation solutions.">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Synergy-GTS — Enterprise Transformation Partner</title>
+  <meta name="description" content="Learn about Synergy-GTS — a leading Canadian SAP consulting firm driving enterprise innovation since 2010. Discover our mission, approach, leadership, and milestones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="light-page">
-<header class="light-header">
-<!-- Paste same navigation from index -->
-</header>
+<body>
 
-<header>
-<div class="container" style="font-family: Calibri; font-size: 11pt; font-weight: bold">
-<nav>
-<div class="logo-container">
-  <a href="index.html">
-    <img src="assets/logo.png" alt="Synergy GTS Logo" class="logo-img">
-  </a>
-</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About &#9662;</a>
-<ul>
-<li><a href="careers.html">Careers</a></li>
-<li><a href="case-studies.html">Case Studies</a></li>
-</ul> 
-</li>
-<li>
-<a href="services.html">Services &#9662;</a>
-<ul>
-<li><a href="services.html">Implementation</a></li>
-<li><a href="services.html">Migration</a></li>
-<li><a href="services.html">Analytics</a></li>
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Synergy-GTS">
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="industries.html" class="nav-link">Industries</a>
+        <a href="case-studies.html" class="nav-link">Case Studies</a>
+        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="contact.html" class="btn-primary">Request Consultation</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="services.html">Services</a>
+        <a href="industries.html">Industries</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn-primary">Request Consultation</a>
+      </div>
+    </div>
+  </nav>
 
-</ul>
-</li>
+  <!-- ======================== 1. INTERNAL HERO ======================== -->
+  <section class="internal-hero hero-gradient">
+    <div class="pattern-bg"></div>
+    <div class="hero-particles">
+      <div class="particle" style="left:10%;top:20%;width:4px;height:4px;animation-delay:0s;animation-duration:8s;"></div>
+      <div class="particle" style="left:25%;top:65%;width:3px;height:3px;animation-delay:1.5s;animation-duration:7s;"></div>
+      <div class="particle" style="left:50%;top:12%;width:5px;height:5px;animation-delay:2.8s;animation-duration:9s;"></div>
+      <div class="particle" style="left:70%;top:45%;width:3px;height:3px;animation-delay:0.6s;animation-duration:6s;"></div>
+      <div class="particle" style="left:88%;top:30%;width:4px;height:4px;animation-delay:3.4s;animation-duration:10s;"></div>
+      <div class="particle" style="left:15%;top:80%;width:3px;height:3px;animation-delay:2.1s;animation-duration:7s;"></div>
+      <div class="particle" style="left:60%;top:70%;width:5px;height:5px;animation-delay:4.0s;animation-duration:8s;"></div>
+      <div class="particle" style="left:40%;top:35%;width:4px;height:4px;animation-delay:1.0s;animation-duration:9s;"></div>
+      <div class="particle" style="left:82%;top:85%;width:3px;height:3px;animation-delay:3.8s;animation-duration:6s;"></div>
+      <div class="particle" style="left:5%;top:50%;width:4px;height:4px;animation-delay:2.5s;animation-duration:11s;"></div>
+    </div>
+    <div class="hero-content fade-in">
+      <div class="hero-badge">About Us</div>
+      <h1>About Synergy GTS</h1>
+      <p>Driving Enterprise Innovation Across Canada — Trusted SAP consulting partner since 2010.</p>
+    </div>
+  </section>
 
-<li>
-<a href="#">Industries &#9662;</a>
-<ul>
-<li><a href="industries.html">Manufacturing</a></li>
-<li><a href="industries.html">Retail</a></li>
-<li><a href="industries.html">Energy</a></li>
-</ul>
-</li>
+  <!-- ======================== 2. COMPANY DESCRIPTION ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="grid-image fade-in-left">
+          <img src="images/logo2.png" alt="Synergy-GTS Company">
+        </div>
+        <div class="grid-content fade-in-right">
+          <div class="section-header-left">
+            <div class="section-label">Who We Are</div>
+            <h2>Canadian Enterprise Consulting Leader</h2>
+          </div>
+          <p>Synergy-GTS is a premier Canadian technology consulting firm specializing in SAP solutions, enterprise architecture, and digital transformation. Founded in 2010, we have grown from a focused SAP practice into a full-service enterprise consulting partner serving organizations across Canada, the United States, and international markets.</p>
+          <p>Our team of certified SAP consultants, cloud architects, and industry specialists combine deep technical expertise with a genuine understanding of business challenges. We don't just implement technology — we architect solutions that drive measurable outcomes and sustainable competitive advantage.</p>
+          <div class="stats-mini-grid">
+            <div class="stat-mini-card fade-in" style="animation-delay:0.1s;">
+              <div class="stat-mini-number">15+</div>
+              <div class="stat-mini-label">Years</div>
+            </div>
+            <div class="stat-mini-card fade-in" style="animation-delay:0.2s;">
+              <div class="stat-mini-number">100+</div>
+              <div class="stat-mini-label">Projects</div>
+            </div>
+            <div class="stat-mini-card fade-in" style="animation-delay:0.3s;">
+              <div class="stat-mini-number">90%</div>
+              <div class="stat-mini-label">Retention</div>
+            </div>
+            <div class="stat-mini-card fade-in" style="animation-delay:0.4s;">
+              <div class="stat-mini-number">5</div>
+              <div class="stat-mini-label">Countries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- <li><a href="insights.html">Insights</a></li> -->
-<li><a href="contact.html" class="btn">Contact</a></li>
+  <!-- ======================== 3. OUR APPROACH ======================== -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Our Approach</div>
+        <h2>How We Deliver Results</h2>
+      </div>
+      <div class="cards-grid-3">
+        <!-- Business Insight -->
+        <div class="card fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          </div>
+          <h3>Business Insight</h3>
+          <p>We begin every engagement by understanding your business goals, operational challenges, and strategic priorities. Our consultants immerse themselves in your industry context to ensure every solution is grounded in real-world business value.</p>
+        </div>
+        <!-- Industry Expertise -->
+        <div class="card fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Industry Expertise</h3>
+          <p>With deep domain knowledge in manufacturing, energy, retail, and public sector, we bring best practices and regulatory awareness that accelerates delivery and reduces risk across every implementation.</p>
+        </div>
+        <!-- SAP Excellence -->
+        <div class="card fade-in" style="animation-delay:0.3s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>SAP Excellence</h3>
+          <p>Our certified SAP consultants deliver world-class implementation, optimization, and support services across S/4HANA, BTP, analytics, and the full SAP ecosystem with proven methodologies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</ul>
-</nav>
-</div>
-</header>
+  <!-- ======================== 4. SERVICES WE DELIVER ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Core Capabilities</div>
+        <h2>Services We Deliver</h2>
+      </div>
+      <div class="cards-grid-3">
+        <!-- S/4HANA Transformation -->
+        <div class="card fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>S/4HANA Transformation</h3>
+          <p>Complete S/4HANA implementation, migration from ECC, and optimization services designed to maximize your return on SAP investments and unlock real-time business capabilities.</p>
+        </div>
+        <!-- Functional Consulting -->
+        <div class="card fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Functional Consulting</h3>
+          <p>Expert SAP functional consulting across MM, SD, FICO, PP, and more. We align SAP configuration with your business processes for optimal efficiency and user adoption.</p>
+        </div>
+        <!-- BTP Extension -->
+        <div class="card fade-in" style="animation-delay:0.3s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>BTP Extension</h3>
+          <p>Custom SAP Business Technology Platform applications, integration flows, and extensions that extend and enhance your core SAP landscape with modern capabilities.</p>
+        </div>
+        <!-- Treasury & Risk -->
+        <div class="card fade-in" style="animation-delay:0.4s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Treasury &amp; Risk</h3>
+          <p>Specialized SAP Treasury and Risk Management (TRM) implementation and optimization for financial institutions and treasury-conscious enterprises.</p>
+        </div>
+        <!-- Managed Support -->
+        <div class="card fade-in" style="animation-delay:0.5s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Managed Support</h3>
+          <p>Proactive, reliable SAP managed services including 24/7 support, system monitoring, performance optimization, and continuous improvement programs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="internal-hero">
-<h1>About Synergy GTS</h1>
-<p>Driving Enterprise Innovation Across Canada</p>
-</section>
+  <!-- ======================== 5. WHY SYNERGY GTS ======================== -->
+  <section class="dark-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label section-label-light">Why Choose Us</div>
+        <h2 class="text-light">Why Synergy GTS</h2>
+      </div>
+      <div class="cards-grid-2">
+        <!-- Certified SAP Expertise -->
+        <div class="card card-dark fade-in" style="animation-delay:0.1s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3>Certified SAP Expertise</h3>
+          <p>Our team holds certifications across the SAP portfolio, from S/4HANA to BTP. We bring recognized expertise and proven implementation methodologies to every project.</p>
+        </div>
+        <!-- End-to-End Delivery -->
+        <div class="card card-dark fade-in" style="animation-delay:0.2s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3>End-to-End Delivery</h3>
+          <p>From strategy and blueprinting through implementation, testing, go-live, and ongoing support — we manage the entire lifecycle to ensure seamless execution and measurable results.</p>
+        </div>
+        <!-- Canadian Focus -->
+        <div class="card card-dark fade-in" style="animation-delay:0.3s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Canadian Focus</h3>
+          <p>Headquartered in Toronto with offices in Vancouver, we understand the Canadian business landscape, regulatory requirements, and the unique needs of North American enterprises.</p>
+        </div>
+        <!-- Long-Term Partnerships -->
+        <div class="card card-dark fade-in" style="animation-delay:0.4s;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Long-Term Partnerships</h3>
+          <p>With 90% client retention, we invest in lasting relationships. Our success is measured by your success — we're committed to delivering value that extends far beyond initial implementations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="breadcrumb">
-<a href="index.html">Home</a> /
-<span>About</span>
-</div>
+  <!-- ======================== 6. TIMELINE ======================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Our Journey</div>
+        <h2>Key Milestones</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item fade-in" style="animation-delay:0.1s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2010</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Founded</h3>
+            <p>Synergy-GTS was established in Toronto with a vision to deliver world-class SAP consulting to Canadian enterprises, starting with a small team of passionate SAP professionals.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay:0.2s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2014</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>First Major S/4HANA Project</h3>
+            <p>Successfully delivered our first major SAP S/4HANA implementation for a large manufacturing client, establishing our reputation for complex transformation excellence.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay:0.3s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2017</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>International Expansion</h3>
+            <p>Expanded operations beyond Canada to serve clients in the United States and Europe, growing our team and capabilities to meet global demand for SAP expertise.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay:0.4s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2020</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Cloud &amp; BTP Practice</h3>
+            <p>Launched our dedicated SAP BTP and Cloud Integration practice, helping clients leverage the SAP Business Technology Platform for digital innovation and agility.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay:0.5s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2023</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>100+ Projects Milestone</h3>
+            <p>Celebrated the delivery of our 100th successful project, a testament to our team's dedication, expertise, and the trust our clients place in Synergy-GTS.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay:0.6s;">
+          <div class="timeline-marker">
+            <div class="timeline-dot">2025</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Continued Growth</h3>
+            <p>Continuing to expand our team, service offerings, and geographic reach with offices in Toronto and Vancouver, serving enterprises across five countries worldwide.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
-<div class="light-container">
+  <!-- ======================== 7. CTA BANNER ======================== -->
+  <section class="cta-banner">
+    <div class="pattern-bg"></div>
+    <div class="container">
+      <div class="cta-content fade-in">
+        <h2>Ready to Transform Your Enterprise?</h2>
+        <p>Partner with Synergy-GTS to unlock the full potential of your SAP investments and accelerate your digital transformation journey.</p>
+        <a href="contact.html" class="btn-primary btn-lg">Contact Us Today</a>
+      </div>
+    </div>
+  </section>
 
-<div class="light-card">
-<p>
-Synergy GTS is a Canadian enterprise consulting firm specializing in SAP transformation,
-enterprise modernization, and strategic technology advisory.
-</p>
+  <!-- ======================== 8. FOOTER ======================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <img src="images/logo.png" alt="Synergy-GTS">
+          </a>
+          <p>Empowering enterprises through intelligent digital transformation, SAP consulting, and enterprise architecture.</p>
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Our Services -->
+        <div class="footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="services.html">S/4HANA Implementation</a></li>
+            <li><a href="services.html">Migration &amp; Conversion</a></li>
+            <li><a href="services.html">Functional Consulting</a></li>
+            <li><a href="services.html">Cloud Integration</a></li>
+            <li><a href="services.html">BTP Development</a></li>
+            <li><a href="services.html">Treasury &amp; Risk</a></li>
+          </ul>
+        </div>
+        <!-- Contact -->
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Toronto, Ontario
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Vancouver, British Columbia
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+              <a href="mailto:careers@synergygts.com">careers@synergygts.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Mon-Fri 9am-6pm EST
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Synergy-GTS. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookie</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-<p>
-Since 2010, we have partnered with organizations to align business goals with
-scalable digital platforms that deliver measurable value.
-</p>
-</div>
-
-<h2>Our Approach</h2>
-<div class="light-card">
-<p>
-We combine business insight, industry expertise, and deep SAP capabilities
-to ensure that every transformation initiative delivers operational excellence
-and sustainable growth.
-</p>
-</div>
-
-<h2>Why Synergy GTS</h2>
-<div class="light-card">
-<ul>
-<li>Certified SAP Expertise</li>
-<li>End-to-End Program Delivery</li>
-<li>Strong Canadian Enterprise Focus</li>
-<li>Long-Term Strategic Partnerships</li>
-</ul>
-</div>
-
-</div>
-</section>
-
-<footer>
-<p>� 2026 Synergy GTS. All Rights Reserved.</p>
-</footer>
-
+  <script src="js/main.js"></script>
 </body>
 </html>
