@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synergy GTS | SAP & Enterprise Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        /* Animated Gradient Backgrounds */
+        .gradient-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Glassmorphism Nav */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.25);
+        }
+        
+        /* Animated Floating Elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .float-slow {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-15px) translateX(5px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(6, 182, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+        
+        /* Particle Background (Canvas) */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(90deg, #60a5fa 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background-color: #25D366;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #128C7E;
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #075E54;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        @media (max-width: 640px) {
+            .chat-bubble { display: none; }
+            .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+        }
+        
+        /* Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animated Icon Spin */
+        .spin-slow {
+            animation: spin 12s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Ripple effect on buttons */
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple-btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .ripple-btn:active:after {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Particle Background Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Floating WhatsApp Widgets -->
+    <div class="chat-bubble" onclick="openWhatsApp()">💬 Chat with us</div>
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo as text with styling -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center pulse-glow">
+                        <i data-lucide="network" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div class="leading-tight">
+                        <span class="text-2xl font-extrabold text-white tracking-tight">SYNERGY <span class="text-cyan-400">GTS</span></span>
+                        <div class="text-xs text-cyan-300 font-semibold tracking-wide">SAP & CONSULTING</div>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <button onclick="showPage('home')" class="text-slate-300 hover:text-white transition-colors font-medium">Home</button>
+                    <button onclick="showPage('about')" class="text-slate-300 hover:text-white transition-colors font-medium">About</button>
+                    <button onclick="showPage('services')" class="text-slate-300 hover:text-white transition-colors font-medium">Services</button>
+                    <button onclick="showPage('industries')" class="text-slate-300 hover:text-white transition-colors font-medium">Industries</button>
+                    <button onclick="showPage('case-studies')" class="text-slate-300 hover:text-white transition-colors font-medium">Case Studies</button>
+                    <button onclick="showPage('careers')" class="text-slate-300 hover:text-white transition-colors font-medium">Careers</button>
+                    <button onclick="showPage('contact')" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-full transition-all transform hover:scale-105 ripple-btn">
+                        Contact
+                    </button>
+                </div>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden lg:hidden bg-slate-900 border-t border-slate-800">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <button onclick="showPage('home')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Home</button>
+                <button onclick="showPage('about')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">About</button>
+                <button onclick="showPage('services')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Services</button>
+                <button onclick="showPage('industries')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Industries</button>
+                <button onclick="showPage('case-studies')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Case Studies</button>
+                <button onclick="showPage('careers')" class="block w-full text-left px-3 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md">Careers</button>
+                <button onclick="showPage('contact')" class="block w-full text-left px-3 py-3 text-cyan-400 font-semibold">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page-section">
+        <section class="relative min-h-screen gradient-hero flex items-center pt-20 overflow-hidden">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <!-- Animated floating icons -->
+            <i data-lucide="database" class="absolute text-white/10 w-32 h-32 top-20 left-10 floating spin-slow"></i>
+            <i data-lucide="cloud" class="absolute text-white/10 w-28 h-28 bottom-20 right-10 float-slow"></i>
+            <i data-lucide="cpu" class="absolute text-white/10 w-24 h-24 top-1/3 right-1/4 floating"></i>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="animate-fade-in">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-cyan-400 text-sm font-medium mb-6 backdrop-blur-sm">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                            Canadian SAP & Enterprise Consulting
+                        </div>
+                        <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                            Technology We Build.<br>
+                            <span class="text-gradient">Magic You Notice.</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-8 leading-relaxed max-w-lg">
+                            Empowering Canadian & North American Enterprises Through Intelligent Digital Transformation. SAP S/4HANA, Cloud, BTP, and beyond.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="showPage('contact')" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-white font-semibold rounded-full transition-all transform hover:scale-105 flex items-center gap-2 ripple-btn">
+                                Request Consultation <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="showPage('services')" class="px-8 py-4 border-2 border-slate-600 hover:border-cyan-400 text-white font-semibold rounded-full transition-all hover:bg-slate-800">
+                                Explore Services
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative hidden lg:block">
+                        <div class="relative z-10 bg-slate-800/40 backdrop-blur-xl rounded-2xl p-8 border border-slate-700 shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 floating">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-4">
+                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 hover:bg-slate-700/70 transition">
+                                        <i data-lucide="database" class="w-8 h-8 text-cyan-400 mb-2"></i>
+                                        <div class="text-white font-semibold">SAP S/4HANA</div>
+                                        <div class="text-slate-400 text-sm">Intelligent ERP</div>
+                                    </div>
+                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 hover:bg-slate-700/70 transition">
+                                        <i data-lucide="cloud" class="w-8 h-8 text-emerald-400 mb-2"></i>
+                                        <div class="text-white font-semibold">SAP BTP</div>
+                                        <div class="text-slate-400 text-sm">Business Technology Platform</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-4 mt-8">
+                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 hover:bg-slate-700/70 transition">
+                                        <i data-lucide="trending-up" class="w-8 h-8 text-purple-400 mb-2"></i>
+                                        <div class="text-white font-semibold">SAP Analytics</div>
+                                        <div class="text-slate-400 text-sm">Real-time Insights</div>
+                                    </div>
+                                    <div class="bg-slate-700/50 rounded-lg p-4 border border-slate-600 hover:bg-slate-700/70 transition">
+                                        <i data-lucide="shield" class="w-8 h-8 text-orange-400 mb-2"></i>
+                                        <div class="text-white font-semibold">SAP Treasury</div>
+                                        <div class="text-slate-400 text-sm">Risk Management</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent"></div>
+        </section>
+
+        <!-- Company Intro -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 scroll-reveal">
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">Know About <span class="text-cyan-600">Synergy GTS</span></h2>
+                    <div class="max-w-4xl mx-auto text-slate-600 text-lg space-y-4 text-left">
+                        <p>Today more than ever, the buzz in the business world is CHANGE. Companies struggle to manage that CHANGE affecting their business bottom line. It all started in 2010, when TEAM Synergy GTS entered the SAP consulting world, and we successfully connected great people and organizations even when client engagement was most challenging.</p>
+                        <p>We did something that too few consulting firms are known for today: we started building technology relationships. We believe you can build a better business by doing right for both your clients and your consultants. We develop rich software applications, implement ERP applications, deliver analytics solutions, and connect expert human resources with the right clients to achieve technology goals.</p>
+                        <p>Synergy GTS is an enterprise consulting services provider with expertise in SAP ECC, S/4HANA, SAP Treasury & Risk Management, SAP BTP, SAP Cloud, SAP Basis, software services, and staffing services. With 20+ years in SAP strategy, enterprise architecture, and digital transformation leadership across manufacturing, energy, and retail sectors, we enable end-to-end SAP enterprise solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Impact with animated counters -->
+        <section class="py-16 bg-slate-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid gap-6 md:grid-cols-4">
+                    <div class="bg-slate-800/90 rounded-3xl p-10 border border-cyan-500/20 shadow-2xl scroll-reveal">
+                        <div class="text-6xl font-extrabold text-cyan-400 counter" data-target="100">0</div>
+                        <p class="mt-4 text-slate-300 uppercase tracking-[0.24em] text-xs font-semibold">Projects Delivered</p>
+                    </div>
+                    <div class="bg-slate-800/90 rounded-3xl p-10 border border-cyan-500/20 shadow-2xl scroll-reveal">
+                        <div class="text-6xl font-extrabold text-cyan-400 counter" data-target="5">0</div>
+                        <p class="mt-4 text-slate-300 uppercase tracking-[0.24em] text-xs font-semibold">Countries Served</p>
+                    </div>
+                    <div class="bg-slate-800/90 rounded-3xl p-10 border border-cyan-500/20 shadow-2xl scroll-reveal">
+                        <div class="text-6xl font-extrabold text-cyan-400 counter" data-target="90">0</div>
+                        <p class="mt-4 text-slate-300 uppercase tracking-[0.24em] text-xs font-semibold">Client Retention %</p>
+                    </div>
+                    <div class="bg-slate-800/90 rounded-3xl p-10 border border-cyan-500/20 shadow-2xl scroll-reveal">
+                        <div class="text-6xl font-extrabold text-cyan-400 counter" data-target="15">0</div>
+                        <p class="mt-4 text-slate-300 uppercase tracking-[0.24em] text-xs font-semibold">Years Expertise</p>
+                    </div>
+                </div>
+                <p class="mt-10 text-center text-slate-400 max-w-3xl mx-auto">Our project counts reflect years of SAP delivery excellence, multi-country client impact, and a commitment to sustained operational improvement.</p>
+            </div>
+        </section>
+
+        <!-- Testimonials with sliding animation -->
+        <section class="py-24 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-slate-900 mb-12 scroll-reveal">Client Perspectives</h2>
+                <div class="relative max-w-3xl mx-auto">
+                    <div id="testimonialSlider" class="overflow-hidden">
+                        <div class="flex transition-transform duration-500">
+                            <div class="w-full flex-shrink-0 px-4"><div class="bg-white rounded-2xl p-8 shadow-lg"><p class="text-lg italic">"Synergy GTS delivered our SAP transformation with precision and strategic clarity."</p><p class="mt-4 font-semibold">— Manufacturing Client, Ontario</p></div></div>
+                            <div class="w-full flex-shrink-0 px-4"><div class="bg-white rounded-2xl p-8 shadow-lg"><p class="text-lg italic">"Their consultants combined technical expertise with strong business understanding."</p><p class="mt-4 font-semibold">— Retail Enterprise, Toronto</p></div></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-2 mt-6"><button onclick="prevTestimonial()" class="p-2 rounded-full bg-slate-200 hover:bg-cyan-500 transition"><i data-lucide="chevron-left" class="w-5 h-5"></i></button><button onclick="nextTestimonial()" class="p-2 rounded-full bg-slate-200 hover:bg-cyan-500 transition"><i data-lucide="chevron-right" class="w-5 h-5"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Canadian Locations -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-slate-900 mb-12 text-center scroll-reveal">Our Canadian Presence</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-50 rounded-2xl p-8 card-hover"><h3 class="text-2xl font-bold">Toronto, Ontario</h3><p class="mt-2 text-slate-600">Serving enterprise clients across Ontario with strategic SAP advisory, digital transformation programs, and managed consulting services.</p></div>
+                    <div class="bg-slate-50 rounded-2xl p-8 card-hover"><h3 class="text-2xl font-bold">Vancouver, British Columbia</h3><p class="mt-2 text-slate-600">Supporting Western Canadian organizations in technology modernization, SAP implementations, and business process optimization.</p></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE (similar structure, shortened for brevity but complete) -->
+    <div id="about" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">About Synergy GTS</h1><p class="text-xl text-slate-300 mt-4">Driving Enterprise Innovation Across Canada</p></section>
+        <section class="py-24 bg-white"><div class="max-w-4xl mx-auto space-y-8 px-4"><div class="bg-slate-50 p-8 rounded-2xl"><p class="text-lg">Synergy GTS is a Canadian enterprise consulting firm specializing in SAP transformation, enterprise modernization, and strategic technology advisory. Since 2010, we have partnered with organizations to align business goals with scalable digital platforms.</p></div><h2 class="text-3xl font-bold">Our Approach</h2><div class="bg-slate-50 p-8 rounded-2xl"><p>We combine business insight, industry expertise, and deep SAP capabilities to ensure operational excellence and sustainable growth.</p></div><h2 class="text-3xl font-bold">Why Synergy GTS</h2><div class="bg-slate-50 p-8 rounded-2xl"><ul class="space-y-2"><li>✅ Certified SAP Expertise</li><li>✅ End-to-End Program Delivery</li><li>✅ Strong Canadian Enterprise Focus</li><li>✅ Long-Term Strategic Partnerships</li></ul></div><h2 class="text-3xl font-bold">Executive Leadership</h2><div class="grid md:grid-cols-2 gap-6"><div class="bg-slate-50 p-6 rounded-2xl"><h3 class="text-xl font-bold">Managing Director</h3><p>15+ years in SAP strategy, enterprise architecture, CSM and SAP Finance Certified.</p></div><div class="bg-slate-50 p-6 rounded-2xl"><h3 class="text-xl font-bold">Director - Technology & Consulting</h3><p>Global service delivery, business process optimization, MBA & PMP Certified.</p></div></div></div></section>
+    </div>
+
+    <!-- SERVICES PAGE -->
+    <div id="services" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">Our Services</h1><p class="text-xl text-slate-300 mt-4">Comprehensive SAP & enterprise solutions</p></section>
+        <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-3 gap-8"><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="database" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP S/4HANA Implementation</h3><p class="mt-2">End-to-end digital core transformation.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="cloud-upload" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP Migration & Conversion</h3><p class="mt-2">Seamless ECC to S/4HANA.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="bar-chart-2" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP FICO / MM / SD Consulting</h3><p class="mt-2">Finance, supply chain, sales expertise.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="cloud" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP Cloud Integration</h3><p class="mt-2">Hybrid & multi-cloud landscapes.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="layers" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP BTP & Extensions</h3><p class="mt-2">Innovate on Business Technology Platform.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="shield" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">SAP Treasury & Risk</h3><p class="mt-2">Financial risk optimization.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="pie-chart" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">Analytics & Data Strategy</h3><p class="mt-2">Real-time dashboards.</p></div><div class="bg-slate-50 p-6 rounded-2xl card-hover"><i data-lucide="users" class="w-10 h-10 text-cyan-600 mb-4"></i><h3 class="text-xl font-bold">IT Staffing & Managed Support</h3><p class="mt-2">Skilled SAP professionals.</p></div></div></section>
+    </div>
+
+    <!-- INDUSTRIES PAGE -->
+    <div id="industries" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">Industries We Serve</h1><p class="text-xl text-slate-300 mt-4">Industry-Specific SAP & Enterprise Solutions</p></section>
+        <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8"><div class="bg-slate-50 p-8 rounded-2xl"><h2 class="text-2xl font-bold">Manufacturing</h2><p class="mt-2">Supply chain optimization, production planning, S/4HANA migration.</p></div><div class="bg-slate-50 p-8 rounded-2xl"><h2 class="text-2xl font-bold">Energy & Utilities</h2><p class="mt-2">Asset management, regulatory compliance, modernization.</p></div><div class="bg-slate-50 p-8 rounded-2xl"><h2 class="text-2xl font-bold">Retail & Distribution</h2><p class="mt-2">Inventory visibility, omnichannel integration, analytics.</p></div><div class="bg-slate-50 p-8 rounded-2xl"><h2 class="text-2xl font-bold">Public Sector</h2><p class="mt-2">Secure, scalable digital transformation for government.</p></div></div></section>
+    </div>
+
+    <!-- CASE STUDIES PAGE -->
+    <div id="case-studies" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">Case Studies</h1><p class="text-xl text-slate-300 mt-4">Real-world success stories</p></section>
+        <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8"><div class="bg-slate-50 p-8 rounded-2xl"><h3 class="text-2xl font-bold">Manufacturing Client – Germany</h3><p><strong>Challenge:</strong> Legacy SAP ECC inefficiency</p><p><strong>Solution:</strong> S/4HANA Migration</p><p><strong>Result:</strong> 30% Operational Efficiency Increase</p></div><div class="bg-slate-50 p-8 rounded-2xl"><h3 class="text-2xl font-bold">Retail Client – Spain</h3><p><strong>Challenge:</strong> Inventory & reporting delays</p><p><strong>Solution:</strong> SAP MM Optimization</p><p><strong>Result:</strong> 40% Faster Reporting</p></div></div></section>
+    </div>
+
+    <!-- CAREERS PAGE -->
+    <div id="careers" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">Careers at Synergy GTS</h1><p class="text-xl text-slate-300 mt-4">Join our team of exceptional technologists</p></section>
+        <section class="py-24 bg-white"><div class="max-w-3xl mx-auto px-4"><p class="text-lg text-center mb-12">We are always seeking talented SAP consultants, solution architects, and enterprise technology professionals.</p><div class="space-y-6"><div class="bg-slate-50 p-6 rounded-2xl flex flex-wrap justify-between items-center"><div><h3 class="text-xl font-bold">SAP S/4HANA Consultant</h3><p>Toronto / Remote Canada · 5+ years experience</p></div><button class="px-6 py-2 bg-cyan-500 text-white rounded-full">Apply</button></div><div class="bg-slate-50 p-6 rounded-2xl flex flex-wrap justify-between items-center"><div><h3 class="text-xl font-bold">SAP FICO Functional Lead</h3><p>Vancouver / Hybrid · 7+ years experience</p></div><button class="px-6 py-2 bg-cyan-500 text-white rounded-full">Apply</button></div></div><p class="text-center mt-12">Send your resume to: <a href="mailto:careers@synergygts.com" class="text-cyan-600 font-semibold">careers@synergygts.com</a></p></div></section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page-section hidden">
+        <section class="pt-32 pb-20 bg-gradient-to-b from-slate-900 to-slate-800 text-center"><h1 class="text-5xl font-bold text-white">Contact Us</h1><p class="text-xl text-slate-300 mt-4">Let's discuss your digital transformation</p></section>
+        <section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-16"><div><h2 class="text-3xl font-bold mb-6">Get in touch</h2><p class="text-lg text-slate-600 mb-8">Our experts are ready to answer your questions.</p><div class="space-y-6"><div class="flex items-center gap-4 cursor-pointer" onclick="openWhatsApp()"><div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center"><i data-lucide="message-circle" class="w-6 h-6 text-emerald-600"></i></div><div><h4 class="font-bold">WhatsApp Chat</h4><p class="text-emerald-600">Click to chat instantly →</p></div></div><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-cyan-100 flex items-center justify-center"><i data-lucide="mail" class="w-6 h-6 text-cyan-600"></i></div><div><h4 class="font-bold">Email</h4><p>hello@synergygts.com</p></div></div><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center"><i data-lucide="phone" class="w-6 h-6 text-purple-600"></i></div><div><h4 class="font-bold">Phone</h4><p>+1 (888) 447-9664</p></div></div></div></div><div class="bg-slate-50 rounded-2xl p-8"><h3 class="text-2xl font-bold mb-6">Send a message</h3><form id="contactForm" class="space-y-4"><input type="text" placeholder="Full name" class="w-full px-4 py-3 rounded-xl border"><input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl border"><textarea rows="4" placeholder="Project requirements" class="w-full px-4 py-3 rounded-xl border"></textarea><button type="submit" class="w-full py-3 bg-cyan-500 text-white font-semibold rounded-xl hover:bg-cyan-400 transition">Send Message</button></form></div></div></section>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center">© 2026 Synergy GTS. All Rights Reserved.</footer>
+
+    <script>
+        lucide.createIcons();
+        function showPage(id) { document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); window.scrollTo(0,0); if(window.innerWidth<1024) document.getElementById('mobileMenu')?.classList.add('hidden'); }
+        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        function openWhatsApp() { window.open('https://wa.me/18884479664?text=Hello%20Synergy%20GTS%2C%20I%27d%20like%20to%20discuss%20your%20SAP%20services.', '_blank'); }
+        
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        const animateCounters = () => { counters.forEach(c => { let target = +c.getAttribute('data-target'), count = +c.innerText; if(count < target) { c.innerText = Math.ceil(count + target/50); setTimeout(animateCounters, 20); } else c.innerText = target; }); };
+        const statsSection = document.querySelector('.bg-slate-900');
+        const observer = new IntersectionObserver((e) => { if(e[0].isIntersecting) { animateCounters(); observer.unobserve(e[0].target); } }, { threshold: 0.5 });
+        if(statsSection) observer.observe(statsSection);
+        
+        // Testimonial slider
+        let currentTestimonial = 0;
+        const slider = document.querySelector('#testimonialSlider .flex');
+        const testimonials = document.querySelectorAll('#testimonialSlider .w-full');
+        window.prevTestimonial = () => { if(testimonials.length) currentTestimonial = (currentTestimonial-1+testimonials.length)%testimonials.length; if(slider) slider.style.transform = `translateX(-${currentTestimonial*100}%)`; };
+        window.nextTestimonial = () => { if(testimonials.length) currentTestimonial = (currentTestimonial+1)%testimonials.length; if(slider) slider.style.transform = `translateX(-${currentTestimonial*100}%)`; };
+        
+        // Scroll reveal
+        new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 }).observe(document.querySelectorAll('.scroll-reveal'));
+        document.querySelectorAll('.scroll-reveal').forEach(el => new IntersectionObserver((e) => { if(e[0].isIntersecting) e[0].target.classList.add('visible'); }, { threshold: 0.1 }).observe(el));
+        
+        // Contact form
+        document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); alert('Thank you! A Synergy GTS expert will contact you shortly.'); e.target.reset(); });
+        
+        // Particle background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        for(let i=0;i<80;i++) particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, radius: Math.random()*2+1, alpha: Math.random()*0.5, speedX: (Math.random()-0.5)*0.5, speedY: (Math.random()-0.5)*0.5 });
+        function animateParticles() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.x += p.speedX; p.y += p.speedY; if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0; if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0; ctx.beginPath(); ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fillStyle = `rgba(6, 182, 212, ${p.alpha})`; ctx.fill(); }); requestAnimationFrame(animateParticles); }
+        animateParticles();
+        
+        showPage('home');
+    </script>
+</body>
+</html>
