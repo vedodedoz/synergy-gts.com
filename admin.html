@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Synergy GTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f0f4ff; color: #1a1a2e; min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0f28 0%, #0d2b6b 60%, #1a4fd8 100%);
+    }
+    .login-card {
+      background: #fff; border-radius: 1.25rem; padding: 3rem 2.5rem;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.45);
+    }
+    .login-brand { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .login-brand-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, #1a4fd8, #0d2b6b);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.5rem; font-weight: 800;
+    }
+    .login-brand h1 { font-size: 1.3rem; font-weight: 800; color: #0a0f28; line-height: 1.1; }
+    .login-brand p { font-size: 0.78rem; color: #6b7280; margin-top: 2px; }
+    .lf-group { margin-bottom: 1.25rem; }
+    .lf-group label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #374151; margin-bottom: 0.4rem; }
+    .pwd-wrap { position: relative; }
+    .pwd-wrap input {
+      width: 100%; padding: 0.75rem 2.8rem 0.75rem 0.9rem;
+      border: 1.5px solid #d1d9e8; border-radius: 0.6rem;
+      font-size: 0.95rem; font-family: inherit; color: #1a1a2e;
+      outline: none; transition: border-color .2s, box-shadow .2s; background: #fafbff;
+    }
+    .pwd-wrap input:focus { border-color: #1a4fd8; box-shadow: 0 0 0 3px rgba(26,79,216,.12); }
+    .pwd-toggle {
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #6b7280; padding: 0;
+      display: flex; align-items: center;
+    }
+    .login-err { font-size: 0.83rem; color: #ef4444; min-height: 1.2em; margin-bottom: 0.5rem; }
+    .btn-login {
+      width: 100%; padding: 0.8rem; background: linear-gradient(135deg, #1a4fd8, #0d2b6b);
+      color: #fff; border: none; border-radius: 0.6rem; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s, transform .2s;
+    }
+    .btn-login:hover { opacity: 0.9; transform: translateY(-1px); }
+    .login-hint { text-align: center; margin-top: 1.25rem; font-size: 0.78rem; color: #9ca3af; }
+
+    /* ── LAYOUT ── */
+    #dashboard { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    #sidebar {
+      width: 260px; background: #0a0f28; color: #fff;
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; height: 100vh; z-index: 200;
+      overflow-y: auto;
+    }
+    .sb-brand {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 1.5rem 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .sb-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: linear-gradient(135deg, #1a4fd8, #0d2b6b);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; color: #fff;
+    }
+    .sb-name { font-size: 0.95rem; font-weight: 700; line-height: 1.2; }
+    .sb-label { font-size: 0.72rem; color: rgba(255,255,255,.45); }
+    .sb-nav { flex: 1; padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .sb-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0.85rem; border-radius: 0.6rem;
+      color: rgba(255,255,255,.6); font-size: 0.88rem; font-weight: 500;
+      text-decoration: none; cursor: pointer; border: none; background: none; width: 100%;
+      transition: background .15s, color .15s;
+    }
+    .sb-link:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .sb-link.active { background: rgba(26,79,216,.35); color: #fff; }
+    .sb-link svg { flex-shrink: 0; opacity: .75; }
+    .sb-link.active svg { opacity: 1; }
+    .sb-section-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: rgba(255,255,255,.3); padding: 0.75rem 0.85rem 0.3rem;
+    }
+    .sb-bottom {
+      padding: 1rem 0.75rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .sb-site-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 0.85rem; border-radius: .5rem;
+      color: rgba(255,255,255,.6); font-size: 0.82rem; text-decoration: none;
+      transition: color .15s;
+    }
+    .sb-site-link:hover { color: #fff; }
+    .btn-logout {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.55rem 0.85rem; border-radius: .5rem;
+      background: rgba(239,68,68,.12); color: #fca5a5; border: none;
+      font-size: 0.82rem; font-family: inherit; cursor: pointer; width: 100%;
+      transition: background .15s;
+    }
+    .btn-logout:hover { background: rgba(239,68,68,.25); }
+
+    /* Main area */
+    #adminMain {
+      margin-left: 260px; flex: 1; padding: 2rem;
+      max-width: calc(100vw - 260px);
+    }
+    .page-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .page-header h2 { font-size: 1.6rem; font-weight: 800; color: #0a0f28; }
+    .page-header p { font-size: 0.88rem; color: #6b7280; margin-top: 0.2rem; }
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem; margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #fff; border-radius: 1rem; padding: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .stat-icon {
+      width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stat-icon.blue { background: #eff6ff; color: #1a4fd8; }
+    .stat-icon.green { background: #f0fdf4; color: #10b981; }
+    .stat-icon.purple { background: #faf5ff; color: #7c3aed; }
+    .stat-icon.orange { background: #fff7ed; color: #f59e0b; }
+    .stat-val { font-size: 2rem; font-weight: 800; color: #0a0f28; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: #6b7280; margin-top: 0.25rem; font-weight: 500; }
+
+    /* Cards */
+    .admin-card {
+      background: #fff; border-radius: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .admin-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid #f0f2f9;
+    }
+    .admin-card-header h3 { font-size: 1rem; font-weight: 700; color: #0a0f28; }
+    .admin-card-body { padding: 1.5rem; }
+
+    /* Table */
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      color: #6b7280; background: #f9fafb; border-bottom: 1px solid #f0f2f9;
+    }
+    .admin-table td {
+      padding: 1rem; border-bottom: 1px solid #f5f7ff;
+      font-size: 0.88rem; color: #374151; vertical-align: middle;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: #fafbff; }
+    .td-title { font-weight: 600; color: #0a0f28; }
+    .td-sub { font-size: 0.78rem; color: #6b7280; margin-top: 0.15rem; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center; padding: 0.25rem 0.65rem;
+      border-radius: 99px; font-size: 0.72rem; font-weight: 700;
+    }
+    .badge-blue { background: #eff6ff; color: #1a4fd8; }
+    .badge-green { background: #f0fdf4; color: #059669; }
+    .badge-purple { background: #faf5ff; color: #7c3aed; }
+    .badge-orange { background: #fff7ed; color: #d97706; }
+    .badge-gray { background: #f3f4f6; color: #6b7280; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: .5rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all .2s; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.78rem; }
+    .btn-primary-sm { background: linear-gradient(135deg,#1a4fd8,#0d2b6b); color: #fff; }
+    .btn-primary-sm:hover { opacity: 0.85; }
+    .btn-outline { background: transparent; border: 1.5px solid #d1d9e8; color: #374151; }
+    .btn-outline:hover { border-color: #1a4fd8; color: #1a4fd8; }
+    .btn-danger { background: #fee2e2; color: #ef4444; }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-success { background: #d1fae5; color: #059669; }
+    .btn-success:hover { background: #a7f3d0; }
+    .btn-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    /* Job / Branch cards in admin */
+    .job-admin-card {
+      background: #fff; border: 1.5px solid #e8edf8; border-radius: 1rem;
+      padding: 1.5rem; margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+      transition: box-shadow .2s;
+    }
+    .job-admin-card:hover { box-shadow: 0 4px 16px rgba(26,79,216,.09); }
+    .jac-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .jac-title { font-size: 1.05rem; font-weight: 700; color: #0a0f28; }
+    .jac-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
+    .jac-desc { font-size: 0.85rem; color: #6b7280; line-height: 1.6; margin-top: 0.6rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Branch cards */
+    .branches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+    .branch-card {
+      background: #fff; border: 1.5px solid #e8edf8; border-radius: 1rem; padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .branch-card.primary { border-color: #1a4fd8; }
+    .branch-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .branch-name { font-size: 1.05rem; font-weight: 700; color: #0a0f28; }
+    .branch-info { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .branch-info-row { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.83rem; color: #6b7280; }
+    .branch-info-row svg { flex-shrink: 0; margin-top: 2px; color: #1a4fd8; }
+
+    /* Forms inside modals */
+    .modal-fg { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+    .modal-fg label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #374151; }
+    .modal-fg label .req { color: #ef4444; }
+    .modal-fg input, .modal-fg select, .modal-fg textarea {
+      padding: 0.65rem 0.9rem; border: 1.5px solid #d1d9e8; border-radius: .5rem;
+      font-size: 0.9rem; font-family: inherit; color: #1a1a2e; outline: none;
+      background: #fafbff; transition: border-color .2s, box-shadow .2s;
+    }
+    .modal-fg input:focus, .modal-fg select:focus, .modal-fg textarea:focus {
+      border-color: #1a4fd8; box-shadow: 0 0 0 3px rgba(26,79,216,.1);
+    }
+    .modal-fg textarea { resize: vertical; min-height: 90px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 560px) { .form-row-2 { grid-template-columns: 1fr; } }
+    .fg-hint { font-size: 0.74rem; color: #9ca3af; margin-top: 0.2rem; }
+
+    /* Content tab */
+    .content-section-title {
+      font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+      color: #1a4fd8; padding: 0.5rem 0; border-bottom: 2px solid #e8f0fe; margin-bottom: 1rem; margin-top: 1.5rem;
+    }
+    .content-section-title:first-of-type { margin-top: 0; }
+
+    /* Modal overlay */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(10,15,40,.7); backdrop-filter: blur(4px);
+      z-index: 500; align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 1rem; width: 100%; max-width: 640px;
+      margin: auto; box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      animation: mIn .25s ease;
+    }
+    .modal-box.modal-lg { max-width: 800px; }
+    @keyframes mIn { from { opacity:0; transform:translateY(24px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid #f0f2f9;
+    }
+    .modal-head h3 { font-size: 1.1rem; font-weight: 700; color: #0a0f28; }
+    .modal-close {
+      width: 2rem; height: 2rem; border-radius: 50%; background: #f3f4f6; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: #6b7280; transition: background .15s;
+    }
+    .modal-close:hover { background: #e5e7eb; }
+    .modal-body { padding: 1.5rem 1.75rem; }
+    .modal-footer {
+      display: flex; justify-content: flex-end; gap: .75rem;
+      padding: 1rem 1.75rem 1.5rem; border-top: 1px solid #f0f2f9;
+    }
+    .btn-cancel { background: #f3f4f6; color: #374151; border: none; }
+    .btn-cancel:hover { background: #e5e7eb; }
+    .btn-save { background: linear-gradient(135deg,#1a4fd8,#0d2b6b); color: #fff; border: none; }
+    .btn-save:hover { opacity: .88; }
+
+    /* Application detail in modal */
+    .app-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; }
+    @media (max-width: 480px) { .app-detail-grid { grid-template-columns: 1fr; } }
+    .app-detail-item label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #9ca3af; display: block; margin-bottom: 0.2rem; }
+    .app-detail-item p { font-size: 0.9rem; color: #1a1a2e; font-weight: 500; }
+    .app-cover-text { font-size: 0.88rem; color: #374151; line-height: 1.7; background: #f9fafb; border-radius: .5rem; padding: 1rem; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+      background: #0a0f28; color: #fff; padding: 0.85rem 1.25rem; border-radius: .75rem;
+      font-size: 0.88rem; font-weight: 600; box-shadow: 0 8px 30px rgba(0,0,0,.3);
+      transform: translateY(120%); opacity: 0; transition: all .3s; max-width: 320px;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.toast-success { background: #065f46; }
+    #toast.toast-error { background: #991b1b; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem; color: #9ca3af;
+    }
+    .empty-state svg { opacity: .4; margin-bottom: 1rem; }
+    .empty-state p { font-size: 0.95rem; }
+
+    /* Confirm dialog */
+    .confirm-box { max-width: 420px; }
+    .confirm-box .modal-body { text-align: center; padding: 2rem; }
+    .confirm-icon { width: 56px; height: 56px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: #ef4444; }
+    .confirm-box h4 { font-size: 1.1rem; font-weight: 700; color: #0a0f28; margin-bottom: 0.5rem; }
+    .confirm-box p { font-size: 0.88rem; color: #6b7280; }
+    .confirm-footer { padding: 1rem 1.5rem; border-top: 1px solid #f0f2f9; display: flex; justify-content: flex-end; gap: .6rem; }
+
+    /* Settings */
+    .settings-section { max-width: 560px; }
+    .danger-zone { border: 1.5px solid #fca5a5; border-radius: 1rem; padding: 1.5rem; margin-top: 2rem; background: #fff5f5; }
+    .danger-zone h3 { color: #ef4444; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .danger-zone p { font-size: 0.85rem; color: #6b7280; margin-bottom: 1rem; }
+
+    /* Responsive sidebar */
+    @media (max-width: 768px) {
+      #sidebar { width: 220px; }
+      #adminMain { margin-left: 220px; padding: 1.25rem; max-width: calc(100vw - 220px); }
+    }
+    @media (max-width: 540px) {
+      #sidebar { transform: translateX(-100%); transition: transform .25s; }
+      #sidebar.open { transform: translateX(0); }
+      #adminMain { margin-left: 0; max-width: 100vw; }
+    }
+    .mobile-menu-btn {
+      display: none; position: fixed; top: 1rem; left: 1rem; z-index: 300;
+      background: #0a0f28; color: #fff; border: none; border-radius: .5rem;
+      width: 40px; height: 40px; align-items: center; justify-content: center; cursor: pointer;
+    }
+    @media (max-width: 540px) { .mobile-menu-btn { display: flex; } }
+
+    /* misc */
+    .mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 1.5rem; }
+    .text-muted { color: #6b7280; font-size: 0.83rem; }
+    .divider { border: none; border-top: 1px solid #f0f2f9; margin: 1.5rem 0; }
+    .flex-between { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .pill-type { display: inline-flex; align-items: center; padding: .2rem .6rem; border-radius: 99px; font-size: .72rem; font-weight: 700; background: #eff6ff; color: #1a4fd8; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ LOGIN ══════════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-brand-icon">S</div>
+      <div>
+        <h1>Synergy GTS</h1>
+        <p>Website Administration Panel</p>
+      </div>
+    </div>
+    <form id="loginForm" novalidate>
+      <div class="lf-group">
+        <label for="pwdInput">Admin Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="pwdInput" placeholder="Enter admin password" autocomplete="current-password" required>
+          <button type="button" class="pwd-toggle" id="togglePwd" aria-label="Show password">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="loginErr" class="login-err"></div>
+      <button type="submit" class="btn-login">Sign In →</button>
+    </form>
+    <p class="login-hint">Default password: <strong>Admin@2026</strong></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ DASHBOARD ══════════════════════════════════════════ -->
+<div id="dashboard" style="display:none">
+
+  <button class="mobile-menu-btn" id="mobileToggle" aria-label="Open menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <!-- ── SIDEBAR ── -->
+  <aside id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-icon">S</div>
+      <div>
+        <div class="sb-name">Synergy GTS</div>
+        <div class="sb-label">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section-label">Menu</div>
+      <button class="sb-link active" data-tab="overview">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </button>
+      <button class="sb-link" data-tab="jobs">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Jobs
+        <span id="sb-jobs-count" class="badge badge-blue" style="margin-left:auto;"></span>
+      </button>
+      <button class="sb-link" data-tab="branches">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Branches
+        <span id="sb-branches-count" class="badge badge-purple" style="margin-left:auto;"></span>
+      </button>
+      <button class="sb-link" data-tab="applications">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Applications
+        <span id="sb-apps-count" class="badge badge-green" style="margin-left:auto;"></span>
+      </button>
+      <button class="sb-link" data-tab="content">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Content
+      </button>
+      <button class="sb-link" data-tab="settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </button>
+    </nav>
+    <div class="sb-bottom">
+      <a href="index.html" target="_blank" class="sb-site-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Live Site
+      </a>
+      <button class="btn-logout" id="logoutBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main id="adminMain">
+
+    <!-- ═══ TAB: OVERVIEW ═══ -->
+    <section id="tab-overview" class="tab-section active">
+      <div class="page-header">
+        <div><h2>Overview</h2><p>Website management dashboard</p></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <div><div class="stat-val" id="ov-jobs">0</div><div class="stat-label">Active Jobs</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div><div class="stat-val" id="ov-apps">0</div><div class="stat-label">Applications Received</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><div class="stat-val" id="ov-branches">0</div><div class="stat-label">Office Branches</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div><div class="stat-val" id="ov-cvs">0</div><div class="stat-label">CVs Uploaded</div></div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h3>Recent Applications</h3>
+          <button class="btn btn-outline btn-sm" onclick="showTab('applications')">View All</button>
+        </div>
+        <div id="recentAppsTable">
+          <div class="empty-state"><p>No applications yet.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TAB: JOBS ═══ -->
+    <section id="tab-jobs" class="tab-section">
+      <div class="page-header flex-between">
+        <div><h2>Jobs</h2><p>Manage open positions displayed on the Careers page</p></div>
+        <button class="btn btn-primary-sm" onclick="openJobModal(null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add New Job
+        </button>
+      </div>
+      <div id="jobsAdminList"></div>
+    </section>
+
+    <!-- ═══ TAB: BRANCHES ═══ -->
+    <section id="tab-branches" class="tab-section">
+      <div class="page-header flex-between">
+        <div><h2>Branches</h2><p>Manage office locations shown across the website</p></div>
+        <button class="btn btn-primary-sm" onclick="openBranchModal(null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Branch
+        </button>
+      </div>
+      <div class="branches-grid" id="branchesAdminGrid"></div>
+    </section>
+
+    <!-- ═══ TAB: APPLICATIONS ═══ -->
+    <section id="tab-applications" class="tab-section">
+      <div class="page-header flex-between">
+        <div><h2>Applications</h2><p>All received job applications and uploaded CVs</p></div>
+        <button class="btn btn-danger btn-sm" onclick="confirmClearApplications()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Clear All
+        </button>
+      </div>
+      <div class="admin-card">
+        <div id="applicationsTableWrap"></div>
+      </div>
+    </section>
+
+    <!-- ═══ TAB: CONTENT ═══ -->
+    <section id="tab-content" class="tab-section">
+      <div class="page-header">
+        <div><h2>Content Editor</h2><p>Update website text — changes are saved and applied automatically via <code>js/site-data.js</code></p></div>
+      </div>
+      <div class="admin-card" style="max-width:860px">
+        <div class="admin-card-body">
+          <form id="contentForm">
+
+            <div class="content-section-title">Company Info</div>
+            <div class="form-row-2">
+              <div class="modal-fg"><label>Company Name</label><input type="text" id="c-company-name" data-key="company.name"></div>
+              <div class="modal-fg"><label>Contact Email</label><input type="email" id="c-company-email" data-key="company.email"></div>
+            </div>
+            <div class="modal-fg"><label>Tagline (footer & about)</label><textarea id="c-company-tagline" data-key="company.tagline" rows="2"></textarea></div>
+            <div class="form-row-2">
+              <div class="modal-fg"><label>Phone / Availability</label><input type="text" id="c-company-phone" data-key="company.phone"></div>
+              <div class="modal-fg"><label>Founded Year</label><input type="text" id="c-company-founded" data-key="company.founded"></div>
+            </div>
+
+            <div class="content-section-title">Home Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-home-title" data-key="home.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-home-sub" data-key="home.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">About Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-about-title" data-key="about.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-about-sub" data-key="about.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">Services Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-services-title" data-key="services.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-services-sub" data-key="services.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">Industries Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-industries-title" data-key="industries.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-industries-sub" data-key="industries.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">Case Studies Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-casestudies-title" data-key="case-studies.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-casestudies-sub" data-key="case-studies.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">Careers Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-careers-title" data-key="careers.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-careers-sub" data-key="careers.hero.subtitle" rows="2"></textarea></div>
+
+            <div class="content-section-title">Contact Page Hero</div>
+            <div class="modal-fg"><label>Title</label><input type="text" id="c-contact-title" data-key="contact.hero.title"></div>
+            <div class="modal-fg"><label>Subtitle</label><textarea id="c-contact-sub" data-key="contact.hero.subtitle" rows="2"></textarea></div>
+
+            <div style="margin-top:1.75rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+              <button type="submit" class="btn btn-save">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save All Content
+              </button>
+              <button type="button" class="btn btn-outline" onclick="resetContent()">Reset to Defaults</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TAB: SETTINGS ═══ -->
+    <section id="tab-settings" class="tab-section">
+      <div class="page-header">
+        <div><h2>Settings</h2><p>Admin preferences and data management</p></div>
+      </div>
+      <div class="settings-section">
+        <div class="admin-card">
+          <div class="admin-card-header"><h3>Change Admin Password</h3></div>
+          <div class="admin-card-body">
+            <form id="pwdChangeForm">
+              <div class="modal-fg"><label>Current Password <span class="req">*</span></label><input type="password" id="curPwd" placeholder="Current password" required></div>
+              <div class="modal-fg"><label>New Password <span class="req">*</span></label><input type="password" id="newPwd" placeholder="New password (min 8 chars)" required minlength="8"></div>
+              <div class="modal-fg"><label>Confirm New Password <span class="req">*</span></label><input type="password" id="confirmPwd" placeholder="Repeat new password" required></div>
+              <div id="pwdChangeErr" class="login-err"></div>
+              <button type="submit" class="btn btn-save mt-1">Update Password</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="admin-card mt-2">
+          <div class="admin-card-header"><h3>Data Export</h3></div>
+          <div class="admin-card-body">
+            <p class="text-muted" style="margin-bottom:1rem;">Download all stored data as a JSON backup file.</p>
+            <button class="btn btn-outline" onclick="exportData()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export All Data (JSON)
+            </button>
+          </div>
+        </div>
+
+        <div class="danger-zone mt-2">
+          <h3>⚠ Danger Zone</h3>
+          <p>These actions cannot be undone. Please be careful.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <button class="btn btn-danger btn-sm" onclick="confirmClearApplications()">Clear All Applications</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmResetAll()">Reset All Data to Defaults</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /adminMain -->
+</div><!-- /dashboard -->
+
+<!-- ══════════════════════════════════════════ MODALS ══════════════════════════════════════════ -->
+
+<!-- JOB MODAL -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="jobModalTitle">Add New Job</h3>
+      <button class="modal-close" onclick="closeModal('jobModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="jobId">
+      <div class="form-row-2">
+        <div class="modal-fg"><label>Job Title <span class="req">*</span></label><input type="text" id="jTitle" placeholder="e.g. SAP FICO Consultant"></div>
+        <div class="modal-fg"><label>Department <span class="req">*</span></label><input type="text" id="jDept" placeholder="e.g. SAP Practice"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="modal-fg">
+          <label>Location <span class="req">*</span></label>
+          <input type="text" id="jLocation" placeholder="e.g. Toronto, ON / Remote">
+        </div>
+        <div class="modal-fg">
+          <label>Employment Type <span class="req">*</span></label>
+          <select id="jType">
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-fg">
+        <label>Role Description <span class="req">*</span></label>
+        <textarea id="jDesc" rows="4" placeholder="Describe the role, responsibilities overview, and what the candidate will be doing..."></textarea>
+      </div>
+      <div class="modal-fg">
+        <label>Key Responsibilities <span class="req">*</span></label>
+        <textarea id="jResp" rows="5" placeholder="Enter each responsibility on a new line:&#10;Lead SAP S/4HANA implementations&#10;Manage client stakeholders&#10;Mentor junior consultants"></textarea>
+        <div class="fg-hint">One responsibility per line</div>
+      </div>
+      <div class="modal-fg">
+        <label>Requirements <span class="req">*</span></label>
+        <textarea id="jReqs" rows="5" placeholder="Enter each requirement on a new line:&#10;5+ years SAP FICO experience&#10;SAP Certified preferred&#10;Strong communication skills"></textarea>
+        <div class="fg-hint">One requirement per line</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal('jobModal')">Cancel</button>
+      <button class="btn btn-save" onclick="saveJob()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+        Save Job
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- BRANCH MODAL -->
+<div class="modal-overlay" id="branchModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="branchModalTitle">Add New Branch</h3>
+      <button class="modal-close" onclick="closeModal('branchModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="branchId">
+      <div class="form-row-2">
+        <div class="modal-fg"><label>Branch Name <span class="req">*</span></label><input type="text" id="bName" placeholder="e.g. Toronto Office"></div>
+        <div class="modal-fg"><label>City <span class="req">*</span></label><input type="text" id="bCity" placeholder="e.g. Toronto"></div>
+      </div>
+      <div class="form-row-2">
+        <div class="modal-fg"><label>Province / State <span class="req">*</span></label><input type="text" id="bProvince" placeholder="e.g. Ontario"></div>
+        <div class="modal-fg"><label>Country</label><input type="text" id="bCountry" placeholder="e.g. Canada"></div>
+      </div>
+      <div class="modal-fg"><label>Full Address</label><input type="text" id="bAddress" placeholder="e.g. 123 Main St, Toronto, ON M5H 2N2"></div>
+      <div class="form-row-2">
+        <div class="modal-fg"><label>Contact Email <span class="req">*</span></label><input type="email" id="bEmail" placeholder="e.g. toronto@synergy-gts.com"></div>
+        <div class="modal-fg"><label>Available Hours</label><input type="text" id="bHours" placeholder="e.g. Mon–Fri 9am–6pm EST"></div>
+      </div>
+      <div class="modal-fg" style="flex-direction:row;align-items:center;gap:.5rem;">
+        <input type="checkbox" id="bPrimary" style="width:16px;height:16px;accent-color:#1a4fd8;">
+        <label for="bPrimary" style="text-transform:none;letter-spacing:0;font-size:.88rem;font-weight:600;cursor:pointer;">Mark as Primary / Head Office</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal('branchModal')">Cancel</button>
+      <button class="btn btn-save" onclick="saveBranch()">Save Branch</button>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION VIEW MODAL -->
+<div class="modal-overlay" id="appViewModal">
+  <div class="modal-box modal-lg">
+    <div class="modal-head">
+      <h3 id="appModalName">Applicant Details</h3>
+      <button class="modal-close" onclick="closeModal('appViewModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="app-detail-grid" id="appDetailGrid"></div>
+      <hr class="divider">
+      <div class="modal-fg"><label>Cover Letter</label><div class="app-cover-text" id="appCoverText"></div></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal('appViewModal')">Close</button>
+      <button class="btn btn-outline" id="appDownloadBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box confirm-box">
+    <div class="modal-body">
+      <div class="confirm-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+      </div>
+      <h4 id="confirmTitle">Are you sure?</h4>
+      <p id="confirmMsg">This action cannot be undone.</p>
+    </div>
+    <div class="confirm-footer">
+      <button class="btn btn-cancel" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmOkBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ══════════════════════════════════════════ JAVASCRIPT ══════════════════════════════════════════ -->
+<script>
+(function () {
+
+  /* ── DEFAULT DATA ───────────────────────────────────────────────── */
+  var DEFAULT_PASSWORD = 'QWRtaW5AMjAyNg=='; // btoa('Admin@2026')
+
+  var DEFAULT_JOBS = [
+    { id: 'job_1', title: 'SAP S/4HANA Consultant', department: 'SAP Practice', location: 'Toronto, ON / Remote', type: 'Full-time',
+      description: 'Join our growing SAP S/4HANA practice and lead transformation engagements for Canadian enterprises. You will be responsible for end-to-end implementation delivery — from blueprinting through go-live and hypercare.',
+      responsibilities: ['Lead SAP S/4HANA implementation and migration projects','Conduct business requirement workshops with client stakeholders','Configure SAP modules (FICO, MM, SD) to meet business needs','Develop functional specifications and test documentation','Support UAT and hypercare phases through go-live','Mentor junior consultants and support pre-sales activities'],
+      requirements: ['5+ years SAP S/4HANA implementation experience','Strong knowledge of FICO, MM, or SD modules','Experience with SAP Activate methodology','Excellent communication and client-facing skills','SAP Certification preferred','Bachelor\'s degree in Business, IT, or related field'] },
+    { id: 'job_2', title: 'SAP FICO Functional Lead', department: 'SAP Practice', location: 'Vancouver, BC / Hybrid', type: 'Full-time',
+      description: 'Lead the FICO consulting practice from our Vancouver office. Drive SAP finance transformation projects for enterprise clients across Canada, mentor junior consultants, and establish best practices for our growing SAP Finance team.',
+      responsibilities: ['Lead end-to-end SAP FICO implementations in S/4HANA environments','Design financial process blueprints and solution architecture','Manage client relationships and executive stakeholder communication','Mentor and develop junior FICO consultants','Establish FICO best practices and internal delivery standards','Contribute to pre-sales proposals and solution design'],
+      requirements: ['7+ years SAP FICO consulting experience','Proven track record in finance transformation projects','Deep expertise in S/4HANA Finance and Central Finance','Experience in public sector or manufacturing preferred','SAP Certified Application Associate – Financial Accounting','Strong leadership and project management skills'] }
+  ];
+
+  var DEFAULT_BRANCHES = [
+    { id: 'branch_1', name: 'Toronto Office', city: 'Toronto', province: 'Ontario', country: 'Canada', address: 'Toronto, Ontario, Canada', email: 'inquiries@synergy-gts.com', hours: 'Mon–Fri 9am–6pm EST', primary: true },
+    { id: 'branch_2', name: 'Vancouver Office', city: 'Vancouver', province: 'British Columbia', country: 'Canada', address: 'Vancouver, British Columbia, Canada', email: 'inquiries@synergy-gts.com', hours: 'Mon–Fri 9am–6pm PST', primary: false }
+  ];
+
+  var DEFAULT_CONTENT = {
+    'company.name': 'Synergy-GTS',
+    'company.tagline': 'Empowering Canadian & North American Enterprises Through Intelligent Digital Transformation since 2010.',
+    'company.email': 'inquiries@synergy-gts.com',
+    'company.phone': 'Available Mon-Fri 9am-6pm EST',
+    'company.founded': '2010',
+    'home.hero.title': 'Transform Your Enterprise with Intelligent SAP Solutions',
+    'home.hero.subtitle': 'Synergy GTS delivers end-to-end SAP consulting, implementation, and managed services for Canadian enterprises.',
+    'about.hero.title': 'About Synergy GTS',
+    'about.hero.subtitle': 'Driving Enterprise Innovation Across Canada — Trusted SAP consulting partner since 2010.',
+    'services.hero.title': 'Our Services',
+    'services.hero.subtitle': 'End-to-end SAP consulting and managed services tailored for Canadian and North American enterprises.',
+    'industries.hero.title': 'Industries We Serve',
+    'industries.hero.subtitle': 'Deep domain expertise across key Canadian industry sectors.',
+    'case-studies.hero.title': 'Case Studies',
+    'case-studies.hero.subtitle': 'Real-world enterprise transformation success stories.',
+    'careers.hero.title': 'Careers at Synergy GTS',
+    'careers.hero.subtitle': 'Build your career with a leading SAP consulting firm. Join our team of experts and make a real impact.',
+    'contact.hero.title': 'Contact Us',
+    'contact.hero.subtitle': 'Ready to transform your enterprise? Let\'s discuss how Synergy-GTS can help you achieve your digital transformation goals.'
+  };
+
+  var serverApplications = [];
+  var serverApplicationsLoaded = false;
+  var jobsState = DEFAULT_JOBS.map(function (j) { return Object.assign({}, j); });
+  var branchesState = DEFAULT_BRANCHES.map(function (b) { return Object.assign({}, b); });
+  var contentState = Object.assign({}, DEFAULT_CONTENT);
+
+  async function syncServerApplications() {
+    try {
+      var response = await fetch('api/list_applications.php', { cache: 'no-store' });
+      if (!response.ok) return;
+      var data = await response.json();
+      if (data && data.success && Array.isArray(data.applications)) {
+        serverApplications = data.applications;
+        serverApplicationsLoaded = true;
+        updateCounts();
+        renderOverview();
+        if (document.getElementById('tab-applications').classList.contains('active')) {
+          renderApplications();
+        }
+      }
+    } catch (err) {
+      // Keep local fallback when API is unavailable.
+    }
+  }
+
+  /* ── DATA HELPERS ───────────────────────────────────────────────── */
+  function getJobs()        { return jobsState; }
+  function saveJobs(d)      { jobsState = Array.isArray(d) ? d : []; updateCounts(); }
+  function getBranches()    { return branchesState; }
+  function saveBranches(d)  { branchesState = Array.isArray(d) ? d : []; updateCounts(); }
+  function getApps()        { return serverApplicationsLoaded ? serverApplications : []; }
+  function getContent()     { return contentState; }
+  function saveContent(d)   { contentState = Object.assign({}, DEFAULT_CONTENT, d || {}); }
+
+  async function loadPublicData() {
+    try {
+      var response = await fetch('api/public_data.php', { cache: 'no-store' });
+      if (!response.ok) return;
+      var data = await response.json();
+      if (!data || !data.success) return;
+      saveJobs(Array.isArray(data.jobs) ? data.jobs : []);
+      saveBranches(Array.isArray(data.branches) ? data.branches : []);
+      saveContent(data.content || {});
+    } catch (err) {
+      // Keep defaults if API call fails.
+    }
+  }
+
+  /* ── AUTH ────────────────────────────────────────────────────────── */
+  function checkSession() {
+    if (sessionStorage.getItem('sgts_admin_session') === '1') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'flex';
+      initDashboard();
+    }
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var pwd = document.getElementById('pwdInput').value;
+    var err = document.getElementById('loginErr');
+
+    try {
+      var response = await fetch('api/settings.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify_login', password: pwd })
+      });
+      var data = await response.json();
+      if (!data.success) throw new Error(data.message || 'Incorrect password.');
+
+      err.textContent = '';
+      sessionStorage.setItem('sgts_admin_session', '1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'flex';
+      initDashboard();
+    } catch (apiErr) {
+      err.textContent = apiErr.message || 'Incorrect password. Please try again.';
+      document.getElementById('pwdInput').select();
+    }
+  });
+
+  document.getElementById('togglePwd').addEventListener('click', function () {
+    var inp = document.getElementById('pwdInput');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function () {
+    sessionStorage.removeItem('sgts_admin_session');
+    location.reload();
+  });
+
+  /* ── TABS ────────────────────────────────────────────────────────── */
+  var TAB_TITLES = { overview:'Overview', jobs:'Jobs', branches:'Branches', applications:'Applications', content:'Content Editor', settings:'Settings' };
+
+  function showTab(name) {
+    document.querySelectorAll('.tab-section').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.sb-link').forEach(function(l){ l.classList.remove('active'); });
+    var sec = document.getElementById('tab-' + name);
+    if (sec) sec.classList.add('active');
+    var btn = document.querySelector('.sb-link[data-tab="' + name + '"]');
+    if (btn) btn.classList.add('active');
+    if (name === 'jobs') renderJobs();
+    if (name === 'branches') renderBranches();
+    if (name === 'applications') renderApplications();
+    if (name === 'content') loadContentForm();
+    if (name === 'overview') renderOverview();
+  }
+
+  document.querySelectorAll('.sb-link[data-tab]').forEach(function (btn) {
+    btn.addEventListener('click', function () { showTab(btn.getAttribute('data-tab')); });
+  });
+
+  /* ── INIT ────────────────────────────────────────────────────────── */
+  function initDashboard() {
+    loadPublicData().then(function () {
+      return syncServerApplications();
+    }).finally(function () {
+      updateCounts();
+      renderOverview();
+    });
+  }
+
+  function updateCounts() {
+    var jobs = getJobs(); var apps = getApps(); var branches = getBranches();
+    var cvCount = apps.filter(function(a){ return !!(a.cvData || a.cvUrl); }).length;
+    setText('ov-jobs', jobs.length);
+    setText('ov-apps', apps.length);
+    setText('ov-branches', branches.length);
+    setText('ov-cvs', cvCount);
+    setText('sb-jobs-count', jobs.length);
+    setText('sb-branches-count', branches.length);
+    setText('sb-apps-count', apps.length);
+  }
+
+  function setText(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+
+  /* ── OVERVIEW ────────────────────────────────────────────────────── */
+  function renderOverview() {
+    updateCounts();
+    var apps = getApps().slice().reverse().slice(0, 5);
+    var wrap = document.getElementById('recentAppsTable');
+    if (!apps.length) { wrap.innerHTML = '<div class="empty-state"><p>No applications received yet. They will appear here once job applicants submit their forms.</p></div>'; return; }
+    var html = '<table class="admin-table"><thead><tr><th>Applicant</th><th>Position</th><th>Date</th><th>CV</th></tr></thead><tbody>';
+    apps.forEach(function (a) {
+      html += '<tr><td><div class="td-title">' + esc(a.firstName + ' ' + a.lastName) + '</div><div class="td-sub">' + esc(a.email) + '</div></td>' +
+        '<td>' + esc(a.jobTitle) + '</td>' +
+        '<td>' + formatDate(a.submittedAt) + '</td>' +
+        '<td>' + ((a.cvData || a.cvUrl) ? '<span class="badge badge-green">Attached</span>' : '<span class="badge badge-gray">None</span>') + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  }
+
+  /* ── JOBS ────────────────────────────────────────────────────────── */
+  function renderJobs() {
+    var jobs = getJobs();
+    var wrap = document.getElementById('jobsAdminList');
+    if (!jobs.length) { wrap.innerHTML = '<div class="empty-state"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><p>No jobs yet. Click "Add New Job" to create your first listing.</p></div>'; return; }
+    var html = '';
+    jobs.forEach(function (j) {
+      html += '<div class="job-admin-card">' +
+        '<div class="jac-header">' +
+        '<div><div class="jac-title">' + esc(j.title) + '</div>' +
+        '<div class="jac-meta"><span class="badge badge-blue">' + esc(j.type) + '</span><span class="badge badge-gray">' + esc(j.location) + '</span><span class="badge badge-purple">' + esc(j.department) + '</span></div></div>' +
+        '<div class="btn-actions"><button class="btn btn-outline btn-sm" onclick="openJobModal(\'' + j.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="confirmDeleteJob(\'' + j.id + '\')">Delete</button></div>' +
+        '</div>' +
+        '<div class="jac-desc">' + esc(j.description) + '</div>' +
+        '<div style="margin-top:.75rem;font-size:.78rem;color:#9ca3af;">' + j.requirements.length + ' requirements &nbsp;·&nbsp; ' + j.responsibilities.length + ' responsibilities</div>' +
+        '</div>';
+    });
+    wrap.innerHTML = html;
+  }
+
+  function openJobModal(id) {
+    var jobs = getJobs();
+    document.getElementById('jobModalTitle').textContent = id ? 'Edit Job' : 'Add New Job';
+    if (id) {
+      var j = jobs.find(function(x){ return x.id === id; });
+      if (!j) return;
+      document.getElementById('jobId').value = j.id;
+      document.getElementById('jTitle').value = j.title;
+      document.getElementById('jDept').value = j.department;
+      document.getElementById('jLocation').value = j.location;
+      document.getElementById('jType').value = j.type;
+      document.getElementById('jDesc').value = j.description;
+      document.getElementById('jResp').value = j.responsibilities.join('\n');
+      document.getElementById('jReqs').value = j.requirements.join('\n');
+    } else {
+      document.getElementById('jobId').value = '';
+      document.getElementById('jTitle').value = '';
+      document.getElementById('jDept').value = '';
+      document.getElementById('jLocation').value = '';
+      document.getElementById('jType').value = 'Full-time';
+      document.getElementById('jDesc').value = '';
+      document.getElementById('jResp').value = '';
+      document.getElementById('jReqs').value = '';
+    }
+    openModal('jobModal');
+  }
+
+  async function saveJob() {
+    var title = document.getElementById('jTitle').value.trim();
+    var dept  = document.getElementById('jDept').value.trim();
+    var loc   = document.getElementById('jLocation').value.trim();
+    var desc  = document.getElementById('jDesc').value.trim();
+    var resp  = document.getElementById('jResp').value.trim();
+    var reqs  = document.getElementById('jReqs').value.trim();
+    if (!title || !dept || !loc || !desc || !resp || !reqs) { showToast('Please fill in all required fields.', 'error'); return; }
+    var id   = document.getElementById('jobId').value;
+    var jobObj = {
+      id: id || ('job_' + Date.now()),
+      title: title, department: dept, location: loc,
+      type: document.getElementById('jType').value,
+      description: desc,
+      responsibilities: resp.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+      requirements: reqs.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+    };
+
+    try {
+      var response = await fetch('api/jobs.php', {
+        method: id ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jobObj)
+      });
+      var data = await response.json();
+      if (!data.success) throw new Error(data.message || 'Failed to save job.');
+      saveJobs(data.jobs || []);
+      closeModal('jobModal');
+      renderJobs();
+      showToast(id ? 'Job updated successfully.' : 'New job added successfully.', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save job.', 'error');
+    }
+  }
+
+  function confirmDeleteJob(id) {
+    showConfirm('Delete this job?', 'This job listing will be permanently removed from the Careers page.', function () {
+      fetch('api/jobs.php', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      }).then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Failed to delete job.');
+          saveJobs(data.jobs || []);
+          renderJobs();
+          showToast('Job deleted.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to delete job.', 'error');
+        });
+    });
+  }
+
+  /* ── BRANCHES ─────────────────────────────────────────────────────── */
+  function renderBranches() {
+    var branches = getBranches();
+    var wrap = document.getElementById('branchesAdminGrid');
+    if (!branches.length) { wrap.innerHTML = '<div class="empty-state"><p>No branches yet.</p></div>'; return; }
+    var html = '';
+    branches.forEach(function (b) {
+      html += '<div class="branch-card' + (b.primary ? ' primary' : '') + '">' +
+        '<div class="branch-card-header">' +
+        '<div><div class="branch-name">' + esc(b.name) + '</div>' + (b.primary ? '<span class="badge badge-blue" style="margin-top:.3rem">Primary</span>' : '') + '</div>' +
+        '<div class="btn-actions"><button class="btn btn-outline btn-sm" onclick="openBranchModal(\'' + b.id + '\')">Edit</button><button class="btn btn-danger btn-sm" onclick="confirmDeleteBranch(\'' + b.id + '\')">Delete</button></div>' +
+        '</div>' +
+        '<div class="branch-info">' +
+        '<div class="branch-info-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>' + esc(b.city + ', ' + b.province + ', ' + b.country) + '</span></div>' +
+        (b.address ? '<div class="branch-info-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>' + esc(b.address) + '</span></div>' : '') +
+        '<div class="branch-info-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>' + esc(b.email) + '</span></div>' +
+        (b.hours ? '<div class="branch-info-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>' + esc(b.hours) + '</span></div>' : '') +
+        '</div></div>';
+    });
+    wrap.innerHTML = html;
+  }
+
+  function openBranchModal(id) {
+    var branches = getBranches();
+    document.getElementById('branchModalTitle').textContent = id ? 'Edit Branch' : 'Add New Branch';
+    if (id) {
+      var b = branches.find(function(x){ return x.id === id; });
+      if (!b) return;
+      document.getElementById('branchId').value = b.id;
+      document.getElementById('bName').value = b.name;
+      document.getElementById('bCity').value = b.city;
+      document.getElementById('bProvince').value = b.province;
+      document.getElementById('bCountry').value = b.country;
+      document.getElementById('bAddress').value = b.address || '';
+      document.getElementById('bEmail').value = b.email;
+      document.getElementById('bHours').value = b.hours || '';
+      document.getElementById('bPrimary').checked = b.primary;
+    } else {
+      ['branchId','bName','bCity','bProvince','bCountry','bAddress','bEmail','bHours'].forEach(function(id){ document.getElementById(id).value = ''; });
+      document.getElementById('bPrimary').checked = false;
+    }
+    openModal('branchModal');
+  }
+
+  async function saveBranch() {
+    var name     = document.getElementById('bName').value.trim();
+    var city     = document.getElementById('bCity').value.trim();
+    var province = document.getElementById('bProvince').value.trim();
+    var email    = document.getElementById('bEmail').value.trim();
+    if (!name || !city || !province || !email) { showToast('Please fill in all required fields.', 'error'); return; }
+    var id = document.getElementById('branchId').value;
+    var bObj = {
+      id: id || ('branch_' + Date.now()),
+      name: name, city: city, province: province,
+      country: document.getElementById('bCountry').value.trim() || 'Canada',
+      address: document.getElementById('bAddress').value.trim(),
+      email: email,
+      hours: document.getElementById('bHours').value.trim(),
+      primary: document.getElementById('bPrimary').checked
+    };
+
+    try {
+      var response = await fetch('api/branches.php', {
+        method: id ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bObj)
+      });
+      var data = await response.json();
+      if (!data.success) throw new Error(data.message || 'Failed to save branch.');
+      saveBranches(data.branches || []);
+      closeModal('branchModal');
+      renderBranches();
+      showToast(id ? 'Branch updated.' : 'Branch added.', 'success');
+    } catch (err) {
+      showToast(err.message || 'Failed to save branch.', 'error');
+    }
+  }
+
+  function confirmDeleteBranch(id) {
+    showConfirm('Delete this branch?', 'This office location will be removed from the website.', function () {
+      fetch('api/branches.php', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      }).then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Failed to delete branch.');
+          saveBranches(data.branches || []);
+          renderBranches();
+          showToast('Branch deleted.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to delete branch.', 'error');
+        });
+    });
+  }
+
+  /* ── APPLICATIONS ─────────────────────────────────────────────────── */
+  function renderApplications() {
+    var apps = getApps().slice().reverse();
+    var wrap = document.getElementById('applicationsTableWrap');
+    if (!apps.length) {
+      wrap.innerHTML = '<div class="empty-state"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No applications received yet.</p></div>';
+      return;
+    }
+    var html = '<table class="admin-table"><thead><tr><th>Applicant</th><th>Position Applied</th><th>Experience</th><th>Date</th><th>CV</th><th>Actions</th></tr></thead><tbody>';
+    apps.forEach(function (a) {
+      html += '<tr>' +
+        '<td><div class="td-title">' + esc(a.firstName + ' ' + a.lastName) + '</div><div class="td-sub">' + esc(a.email) + '</div></td>' +
+        '<td>' + esc(a.jobTitle) + '</td>' +
+        '<td>' + esc(a.experience || '—') + '</td>' +
+        '<td>' + formatDate(a.submittedAt) + '</td>' +
+        '<td>' + ((a.cvData || a.cvUrl) ? '<span class="badge badge-green">Attached</span>' : '<span class="badge badge-gray">None</span>') + '</td>' +
+        '<td><div class="btn-actions">' +
+        '<button class="btn btn-outline btn-sm" onclick="viewApplication(\'' + a.id + '\')">View</button>' +
+        ((a.cvData || a.cvUrl) ? '<button class="btn btn-success btn-sm" onclick="downloadCV(\'' + a.id + '\')">CV ↓</button>' : '') +
+        (a.detailsPdfUrl ? '<button class="btn btn-outline btn-sm" onclick="downloadDetails(\'' + a.id + '\')">Details PDF</button>' : '') +
+        '<button class="btn btn-danger btn-sm" onclick="confirmDeleteApp(\'' + a.id + '\')">Del</button>' +
+        '</div></td></tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  }
+
+  function viewApplication(id) {
+    var apps = getApps();
+    var a = apps.find(function(x){ return x.id === id; });
+    if (!a) return;
+    document.getElementById('appModalName').textContent = a.firstName + ' ' + a.lastName;
+    var grid = document.getElementById('appDetailGrid');
+    grid.innerHTML = [
+      ['Full Name', a.firstName + ' ' + a.lastName],
+      ['Email', a.email],
+      ['Phone', a.phone || '—'],
+      ['Position Applied', a.jobTitle],
+      ['Experience', a.experience || '—'],
+      ['LinkedIn', a.linkedin ? '<a href="' + esc(a.linkedin) + '" target="_blank" style="color:#1a4fd8">' + esc(a.linkedin) + '</a>' : '—'],
+      ['CV File', a.cvFileName || 'Not attached'],
+      ['Folder', a.folder || 'N/A'],
+      ['Submitted', formatDateFull(a.submittedAt)]
+    ].map(function(row){
+      return '<div class="app-detail-item"><label>' + row[0] + '</label><p>' + row[1] + '</p></div>';
+    }).join('');
+    document.getElementById('appCoverText').textContent = a.cover || '(No cover letter provided)';
+    var dlBtn = document.getElementById('appDownloadBtn');
+    if (a.cvData || a.cvUrl) {
+      dlBtn.style.display = 'inline-flex';
+      dlBtn.onclick = function(){ downloadCV(id); };
+    } else {
+      dlBtn.style.display = 'none';
+    }
+    openModal('appViewModal');
+  }
+
+  function downloadCV(id) {
+    var apps = getApps();
+    var a = apps.find(function(x){ return x.id === id; });
+    if (!a || (!a.cvData && !a.cvUrl)) { showToast('No CV attached to this application.', 'error'); return; }
+
+    if (a.cvUrl) {
+      var serverLink = document.createElement('a');
+      serverLink.href = a.cvUrl;
+      serverLink.download = a.cvFileName || '';
+      document.body.appendChild(serverLink);
+      serverLink.click();
+      document.body.removeChild(serverLink);
+      showToast('Downloading ' + (a.cvFileName || 'CV') + '…', 'success');
+      return;
+    }
+
+    var link = document.createElement('a');
+    link.href = a.cvData;
+    link.download = a.cvFileName || ('CV_' + a.firstName + '_' + a.lastName + '.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('Downloading ' + (a.cvFileName || 'CV') + '…', 'success');
+  }
+
+  function downloadDetails(id) {
+    var apps = getApps();
+    var a = apps.find(function(x){ return x.id === id; });
+    if (!a || !a.detailsPdfUrl) { showToast('Details PDF not found.', 'error'); return; }
+    var link = document.createElement('a');
+    link.href = a.detailsPdfUrl;
+    link.download = a.detailsPdfName || ('Application_Details_' + id + '.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('Downloading details PDF…', 'success');
+  }
+
+  function confirmDeleteApp(id) {
+    showConfirm('Delete this application?', 'The applicant data and CV will be permanently removed.', function () {
+      fetch('api/delete_application.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      }).then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Delete failed');
+          return syncServerApplications();
+        })
+        .then(function () {
+          renderApplications();
+          updateCounts();
+          showToast('Application deleted.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to delete application.', 'error');
+        });
+    });
+  }
+
+  function confirmClearApplications() {
+    showConfirm('Clear ALL applications?', 'This will permanently delete all ' + getApps().length + ' application(s) and their CVs. This cannot be undone.', function () {
+      fetch('api/clear_applications.php', { method: 'POST' })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Clear failed');
+          return syncServerApplications();
+        })
+        .then(function () {
+          renderApplications();
+          updateCounts();
+          closeModal('confirmModal');
+          showToast('All applications cleared.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to clear applications.', 'error');
+        });
+    });
+  }
+
+  /* ── CONTENT ─────────────────────────────────────────────────────── */
+  function loadContentForm() {
+    var c = getContent();
+    document.querySelectorAll('#contentForm [data-key]').forEach(function (el) {
+      el.value = c[el.getAttribute('data-key')] || '';
+    });
+  }
+
+  document.getElementById('contentForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var content = getContent();
+    document.querySelectorAll('#contentForm [data-key]').forEach(function (el) {
+      content[el.getAttribute('data-key')] = el.value.trim();
+    });
+
+    fetch('api/content.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: content })
+    }).then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (!data.success) throw new Error(data.message || 'Failed to save content.');
+        saveContent(data.content || {});
+        showToast('Content saved successfully! Changes will be visible on the website.', 'success');
+      })
+      .catch(function (err) {
+        showToast(err.message || 'Failed to save content.', 'error');
+      });
+  });
+
+  function resetContent() {
+    showConfirm('Reset all content to defaults?', 'This will overwrite your custom text with the original default values.', function () {
+      fetch('api/content.php?action=reset', { method: 'POST' })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Failed to reset content.');
+          saveContent(data.content || {});
+          loadContentForm();
+          showToast('Content reset to defaults.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to reset content.', 'error');
+        });
+    });
+  }
+
+  /* ── SETTINGS ─────────────────────────────────────────────────────── */
+  document.getElementById('pwdChangeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var cur     = document.getElementById('curPwd').value;
+    var newP    = document.getElementById('newPwd').value;
+    var confirm = document.getElementById('confirmPwd').value;
+    var errEl   = document.getElementById('pwdChangeErr');
+    if (newP.length < 8)        { errEl.textContent = 'New password must be at least 8 characters.'; return; }
+    if (newP !== confirm)       { errEl.textContent = 'New passwords do not match.'; return; }
+
+    fetch('api/settings.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'change_password', currentPassword: cur, newPassword: newP })
+    }).then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (!data.success) throw new Error(data.message || 'Failed to update password.');
+        errEl.textContent = '';
+        document.getElementById('pwdChangeForm').reset();
+        showToast('Password updated successfully.', 'success');
+      })
+      .catch(function (err) {
+        errEl.textContent = err.message || 'Failed to update password.';
+      });
+  });
+
+  function exportData() {
+    var data = { jobs: getJobs(), branches: getBranches(), applications: getApps(), content: getContent(), exportedAt: new Date().toISOString() };
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'synergy-gts-data-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast('Data exported.', 'success');
+  }
+
+  function confirmResetAll() {
+    showConfirm('Reset ALL data to defaults?', 'This will delete all jobs, branches, applications, and content changes, restoring factory defaults.', function () {
+      fetch('api/reset_all.php', { method: 'POST' })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Reset failed');
+          return Promise.all([loadPublicData(), syncServerApplications()]);
+        })
+        .then(function () {
+          updateCounts();
+          renderOverview();
+          showToast('All data reset to defaults.', 'success');
+        })
+        .catch(function (err) {
+          showToast(err.message || 'Failed to reset data.', 'error');
+        });
+    });
+  }
+
+  /* ── MODAL HELPERS ─────────────────────────────────────────────────── */
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  }
+  function closeModal(id) {
+    var m = document.getElementById(id);
+    if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+  }
+  // Close on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(function (m) {
+    m.addEventListener('click', function (e) { if (e.target === m) closeModal(m.id); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function(m){ closeModal(m.id); });
+  });
+
+  var _confirmCallback = null;
+  function showConfirm(title, msg, cb) {
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmMsg').textContent = msg;
+    _confirmCallback = cb;
+    openModal('confirmModal');
+  }
+  document.getElementById('confirmOkBtn').addEventListener('click', function () {
+    closeModal('confirmModal');
+    if (typeof _confirmCallback === 'function') _confirmCallback();
+    _confirmCallback = null;
+  });
+
+  /* ── TOAST ─────────────────────────────────────────────────────────── */
+  var _toastTimer = null;
+  function showToast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'show' + (type ? ' toast-' + type : '');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3500);
+  }
+
+  /* ── MOBILE SIDEBAR ─────────────────────────────────────────────────── */
+  document.getElementById('mobileToggle').addEventListener('click', function () {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+
+  /* ── UTILITY ─────────────────────────────────────────────────────────── */
+  function esc(s) {
+    if (s === null || s === undefined) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function formatDate(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' }); } catch(e) { return iso; }
+  }
+  function formatDateFull(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toLocaleString('en-CA'); } catch(e) { return iso; }
+  }
+
+  // Expose showTab globally for onclick attributes
+  window.showTab = showTab;
+  window.openJobModal = openJobModal;
+  window.saveJob = saveJob;
+  window.confirmDeleteJob = confirmDeleteJob;
+  window.openBranchModal = openBranchModal;
+  window.saveBranch = saveBranch;
+  window.confirmDeleteBranch = confirmDeleteBranch;
+  window.viewApplication = viewApplication;
+  window.downloadCV = downloadCV;
+  window.downloadDetails = downloadDetails;
+  window.confirmDeleteApp = confirmDeleteApp;
+  window.confirmClearApplications = confirmClearApplications;
+  window.exportData = exportData;
+  window.closeModal = closeModal;
+  window.resetContent = resetContent;
+  window.confirmResetAll = confirmResetAll;
+
+  /* ── BOOT ─────────────────────────────────────────────────────────── */
+  checkSession();
+
+}());
+</script>
+
+</body>
+</html>

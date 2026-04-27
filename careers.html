@@ -9,6 +9,287 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── Apply Modal Overlay ── */
+    .apply-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 40, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 9000;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+    }
+    .apply-overlay.active { display: flex; }
+
+    .apply-modal {
+      background: #fff;
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 780px;
+      margin: auto;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      animation: modalIn 0.3s ease;
+      overflow: hidden;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Modal header */
+    .apply-modal-header {
+      background: linear-gradient(135deg, #0a0f28 0%, #0d2b6b 60%, #1a4fd8 100%);
+      padding: 2rem 2rem 1.5rem;
+      position: relative;
+    }
+    .apply-modal-header .modal-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7eb3ff;
+      margin-bottom: 0.4rem;
+    }
+    .apply-modal-header h2 {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+    }
+    .apply-modal-meta {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .apply-modal-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: #b8cfff;
+    }
+    .apply-modal-meta svg { flex-shrink: 0; }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* Modal body */
+    .apply-modal-body { padding: 2rem; }
+
+    /* Job description section */
+    .job-desc-section { margin-bottom: 1.75rem; }
+    .job-desc-section h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #1a4fd8;
+      margin: 0 0 0.65rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #e8f0fe;
+    }
+    .job-desc-section p {
+      color: #444;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+    .job-desc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem 1.5rem;
+    }
+    @media (max-width: 540px) { .job-desc-list { grid-template-columns: 1fr; } }
+    .job-desc-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.5;
+    }
+    .job-desc-list li::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #1a4fd8;
+      flex-shrink: 0;
+      margin-top: 0.4em;
+    }
+
+    /* Divider */
+    .modal-divider {
+      border: none;
+      border-top: 1px solid #e5e9f5;
+      margin: 1.75rem 0;
+    }
+
+    /* Form */
+    .apply-form-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0a0f28;
+      margin: 0 0 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form-group label .req { color: #e53935; margin-left: 2px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid #d1d9e8;
+      border-radius: 0.5rem;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafbff;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #1a4fd8;
+      box-shadow: 0 0 0 3px rgba(26,79,216,0.12);
+      background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    /* CV Upload */
+    .cv-upload-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      border: 2px dashed #b0bfdf;
+      border-radius: 0.6rem;
+      padding: 1.5rem;
+      cursor: pointer;
+      background: #f5f8ff;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: center;
+    }
+    .cv-upload-label:hover {
+      border-color: #1a4fd8;
+      background: #eef3ff;
+    }
+    .cv-upload-label svg { color: #1a4fd8; }
+    .cv-upload-label .upload-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #1a4fd8;
+    }
+    .cv-upload-label .upload-hint {
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+    #cv-file-input { display: none; }
+    .cv-file-name {
+      font-size: 0.8rem;
+      color: #374151;
+      margin-top: 0.4rem;
+      min-height: 1.2em;
+    }
+
+    /* Submit row */
+    .modal-submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-modal-cancel {
+      background: transparent;
+      border: 1.5px solid #d1d9e8;
+      color: #555;
+      padding: 0.65rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-modal-cancel:hover { border-color: #999; color: #222; }
+    .btn-modal-submit {
+      background: linear-gradient(135deg, #1a4fd8, #0d2b6b);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-modal-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Success state */
+    .apply-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .apply-success .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+    .apply-success h3 { font-size: 1.4rem; color: #0a0f28; margin: 0 0 0.5rem; }
+    .apply-success p { color: #555; font-size: 0.95rem; }
+  </style>
 </head>
 <body>
 
@@ -51,8 +332,8 @@
     <div class="pattern-bg"></div>
     <div class="hero-content">
       <span class="section-label">Join Our Team</span>
-      <h1>Careers at Synergy GTS</h1>
-      <p>Build your career with a leading SAP consulting firm. Join our team of experts and make a real impact on enterprise transformation.</p>
+      <h1 data-content-key="careers.hero.title">Careers at Synergy GTS</h1>
+      <p data-content-key="careers.hero.subtitle">Build your career with a leading SAP consulting firm. Join our team of experts and make a real impact on enterprise transformation.</p>
     </div>
   </section>
 
@@ -104,63 +385,8 @@
         <h2>Current Opportunities</h2>
       </div>
 
-      <!-- Job 1 -->
-      <div class="job-card fade-in">
-        <div class="job-card-header">
-          <div>
-            <h3>SAP S/4HANA Consultant</h3>
-            <div class="job-card-meta">
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Toronto, ON / Remote
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Full-time
-              </span>
-            </div>
-          </div>
-          <a href="mailto:inquiries@synergy-gts.com ?subject=Application: SAP S/4HANA Consultant" class="btn-primary">Apply Now</a>
-        </div>
-        <p>Join our growing SAP S/4HANA practice and lead transformation engagements for Canadian enterprises. You will be responsible for end-to-end implementation delivery.</p>
-        <h4>Requirements</h4>
-        <ul>
-          <li><span class="dot"></span>5+ years SAP S/4HANA experience</li>
-          <li><span class="dot"></span>Strong FICO/MM/SD knowledge</li>
-          <li><span class="dot"></span>SAP Activate methodology</li>
-          <li><span class="dot"></span>Communication skills</li>
-          <li><span class="dot"></span>SAP Certification preferred</li>
-        </ul>
-      </div>
-
-      <!-- Job 2 -->
-      <div class="job-card fade-in">
-        <div class="job-card-header">
-          <div>
-            <h3>SAP FICO Functional Lead</h3>
-            <div class="job-card-meta">
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Vancouver, BC / Hybrid
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Full-time
-              </span>
-            </div>
-          </div>
-          <a href="mailto:inquiries@synergy-gts.com ?subject=Application: SAP FICO Functional Lead" class="btn-primary">Apply Now</a>
-        </div>
-        <p>Lead the FICO consulting practice from our Vancouver office. Drive SAP finance transformation projects, mentor junior consultants, establish best practices.</p>
-        <h4>Requirements</h4>
-        <ul>
-          <li><span class="dot"></span>7+ years SAP FICO experience</li>
-          <li><span class="dot"></span>Proven finance transformation track record</li>
-          <li><span class="dot"></span>Deep S/4HANA Finance expertise</li>
-          <li><span class="dot"></span>Public sector or manufacturing preferred</li>
-          <li><span class="dot"></span>SAP Certified Application Associate</li>
-        </ul>
-      </div>
+      <!-- Jobs are rendered dynamically from the database-backed API -->
+      <div id="jobsContainer"></div>
 
     </div>
   </section>
@@ -228,6 +454,386 @@
     <div class="footer-bottom"><div class="footer-bottom-inner"><p>&copy; 2026 Synergy-GTS. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div></div></div>
   </footer>
   <script src="js/main.js"></script>
+  <script src="js/site-data.js"></script>
+
+  <!-- ══════════════════════════════════════════
+       APPLY NOW MODAL
+  ══════════════════════════════════════════ -->
+  <div class="apply-overlay" id="applyOverlay" role="dialog" aria-modal="true" aria-labelledby="modalJobTitle">
+    <div class="apply-modal" id="applyModal">
+
+      <!-- Header -->
+      <div class="apply-modal-header">
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="modal-label">Job Application</div>
+        <h2 id="modalJobTitle">Position Title</h2>
+        <div class="apply-modal-meta">
+          <span id="modalLocation">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="modalLocationText"></span>
+          </span>
+          <span id="modalType">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="modalTypeText"></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="apply-modal-body" id="applyModalBody">
+
+        <!-- Job Description -->
+        <div class="job-desc-section">
+          <h3>About the Role</h3>
+          <p id="modalDescription"></p>
+        </div>
+
+        <div class="job-desc-section">
+          <h3>Key Responsibilities</h3>
+          <ul class="job-desc-list" id="modalResponsibilities"></ul>
+        </div>
+
+        <div class="job-desc-section">
+          <h3>Requirements</h3>
+          <ul class="job-desc-list" id="modalRequirements"></ul>
+        </div>
+
+        <hr class="modal-divider">
+
+        <!-- Application Form -->
+        <p class="apply-form-title">Submit Your Application</p>
+        <form id="applyForm" novalidate>
+          <input type="hidden" name="access_key" value="90bd6636-0774-4329-9339-07e0e699ae55">
+          <input type="hidden" name="subject" id="applySubject" value="New Job Application - Synergy-GTS">
+          <input type="hidden" name="from_name" value="Synergy-GTS Careers Form">
+          <input type="hidden" name="replyto" id="applyReplyTo" value="">
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+          <input type="hidden" id="formJobTitle" name="jobTitle">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formFirstName">First Name <span class="req">*</span></label>
+              <input type="text" id="formFirstName" name="firstName" placeholder="John" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="formLastName">Last Name <span class="req">*</span></label>
+              <input type="text" id="formLastName" name="lastName" placeholder="Smith" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formEmail">Email Address <span class="req">*</span></label>
+              <input type="email" id="formEmail" name="email" placeholder="john@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="formPhone">Phone Number</label>
+              <input type="tel" id="formPhone" name="phone" placeholder="+1 (416) 000-0000" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="formLinkedIn">LinkedIn Profile URL</label>
+            <input type="url" id="formLinkedIn" name="linkedin" placeholder="https://linkedin.com/in/your-profile">
+          </div>
+
+          <div class="form-group">
+            <label for="formExperience">Years of Relevant SAP Experience <span class="req">*</span></label>
+            <select id="formExperience" name="experience" required>
+              <option value="" disabled selected>Select experience level</option>
+              <option value="0-2">0 – 2 years</option>
+              <option value="3-5">3 – 5 years</option>
+              <option value="6-9">6 – 9 years</option>
+              <option value="10+">10+ years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="formCover">Cover Letter <span class="req">*</span></label>
+            <textarea id="formCover" name="cover" rows="4" placeholder="Tell us why you're the right fit for this role…" required></textarea>
+          </div>
+
+          <!-- CV Upload -->
+          <div class="form-group">
+            <label>Upload Your CV / Resume <span class="req">*</span></label>
+            <label class="cv-upload-label" for="cv-file-input">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span class="upload-text" id="uploadBtnText">Click to browse or drag &amp; drop</span>
+              <span class="upload-hint">Accepted formats: PDF, DOC, DOCX &nbsp;·&nbsp; Max 5 MB</span>
+            </label>
+            <input type="file" id="cv-file-input" name="cv" accept=".pdf,.doc,.docx" required>
+            <div class="cv-file-name" id="cvFileName"></div>
+          </div>
+
+          <div class="modal-submit-row">
+            <button type="button" class="btn-modal-cancel" id="modalCancelBtn">Cancel</button>
+            <button type="submit" class="btn-modal-submit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Submit Application
+            </button>
+          </div>
+        </form>
+
+        <!-- Success message (hidden until form submitted) -->
+        <div class="apply-success" id="applySuccess">
+          <div class="success-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Application Submitted!</h3>
+          <p>Thank you for applying to <strong id="successJobTitle"></strong>.<br>Our team will review your application and reach out within 5–7 business days.</p>
+        </div>
+
+      </div><!-- /apply-modal-body -->
+    </div><!-- /apply-modal -->
+  </div><!-- /apply-overlay -->
+
+  <script>
+  (function () {
+
+    var DEFAULT_JOBS = [
+      {
+        id: 'job_1',
+        title: 'SAP S/4HANA Consultant',
+        department: 'SAP Practice',
+        location: 'Toronto, ON / Remote',
+        type: 'Full-time',
+        description: 'Join our growing SAP S/4HANA practice and lead transformation engagements for Canadian enterprises. You will be responsible for end-to-end implementation delivery — from blueprinting through go-live and hypercare.',
+        responsibilities: ['Lead SAP S/4HANA implementation and migration projects','Conduct business requirement workshops with client stakeholders','Configure SAP modules (FICO, MM, SD) to meet business needs','Develop functional specifications and test documentation','Support UAT and hypercare phases through go-live','Mentor junior consultants and support pre-sales activities'],
+        requirements: ['5+ years SAP S/4HANA implementation experience','Strong knowledge of FICO, MM, or SD modules','Experience with SAP Activate methodology','Excellent communication and client-facing skills','SAP Certification preferred','Bachelor\'s degree in Business, IT, or related field']
+      },
+      {
+        id: 'job_2',
+        title: 'SAP FICO Functional Lead',
+        department: 'SAP Practice',
+        location: 'Vancouver, BC / Hybrid',
+        type: 'Full-time',
+        description: 'Lead the FICO consulting practice from our Vancouver office. Drive SAP finance transformation projects for enterprise clients across Canada, mentor junior consultants, and establish best practices for our growing SAP Finance team.',
+        responsibilities: ['Lead end-to-end SAP FICO implementations in S/4HANA environments','Design financial process blueprints and solution architecture','Manage client relationships and executive stakeholder communication','Mentor and develop junior FICO consultants','Establish FICO best practices and internal delivery standards','Contribute to pre-sales proposals and solution design'],
+        requirements: ['7+ years SAP FICO consulting experience','Proven track record in finance transformation projects','Deep expertise in S/4HANA Finance and Central Finance','Experience in public sector or manufacturing preferred','SAP Certified Application Associate – Financial Accounting','Strong leadership and project management skills']
+      },
+      {
+        id: 'job_3',
+        title: 'SAP BTP Developer',
+        department: 'Technology Practice',
+        location: 'Toronto, ON / Remote',
+        type: 'Full-time',
+        description: 'Design and build integrations and extensions on the SAP Business Technology Platform (BTP). Collaborate with functional consultants and client architects to deliver cloud-native SAP solutions.',
+        responsibilities: ['Develop CAP (Cloud Application Programming) applications on SAP BTP','Build integrations using SAP Integration Suite and BTP Integration','Design and implement SAP Fiori / UI5 custom apps','Work with REST/OData APIs to extend S/4HANA functionality','Support CI/CD pipelines and DevOps practices on BTP','Document technical designs and support knowledge transfer'],
+        requirements: ['3+ years SAP BTP development experience','Hands-on with CAP, SAP Integration Suite, and BTP services','Proficiency in JavaScript/TypeScript and Node.js or Java','Experience with SAP Fiori/UI5 development','Familiarity with SAP S/4HANA APIs and OData services','BTP Certification is a plus']
+      },
+      {
+        id: 'job_4',
+        title: 'SAP Project Manager',
+        department: 'Delivery',
+        location: 'Toronto, ON / Hybrid',
+        type: 'Full-time',
+        description: 'Manage end-to-end delivery of SAP implementation and migration projects. Act as the primary interface between client stakeholders and our delivery team, ensuring projects are delivered on time, on budget, and to scope.',
+        responsibilities: ['Own project planning, scheduling, risk management, and status reporting','Manage project budgets and resource allocation','Facilitate steering committee and executive stakeholder meetings','Coordinate functional and technical workstreams across the delivery team','Manage change control and scope throughout project lifecycle','Drive issue resolution and escalation management'],
+        requirements: ['5+ years SAP project management experience','Proven delivery of full-cycle SAP S/4HANA implementations','PMP or Prince2 certification strongly preferred','Experience with SAP Activate methodology','Strong stakeholder management and communication skills','Proficiency in MS Project, Jira, or equivalent PM tools']
+      },
+      {
+        id: 'job_5',
+        title: 'SAP MM/WM Consultant',
+        department: 'SAP Practice',
+        location: 'Calgary, AB / Remote',
+        type: 'Full-time',
+        description: 'Join our supply chain practice to deliver SAP Materials Management and Warehouse Management solutions. Work with manufacturing and retail clients to optimise procurement, inventory, and warehouse operations on S/4HANA.',
+        responsibilities: ['Configure and implement SAP MM and EWM/WM modules in S/4HANA','Gather and analyse business requirements for supply chain processes','Develop functional specifications for custom enhancements','Conduct unit testing, SIT, and support UAT','Provide post go-live hypercare and end-user training','Collaborate with SD and FICO consultants for end-to-end process design'],
+        requirements: ['4+ years SAP MM/WM consulting experience','Strong knowledge of procurement-to-pay and inventory management processes','Experience with SAP S/4HANA embedded analytics for supply chain','Familiarity with SAP EWM is an advantage','Good understanding of cross-module integration (SD, FICO)','Bachelor\'s degree in Supply Chain, Business, or related field']
+      },
+      {
+        id: 'job_6',
+        title: 'SAP SD Consultant',
+        department: 'SAP Practice',
+        location: 'Montreal, QC / Hybrid',
+        type: 'Full-time',
+        description: 'Drive SAP Sales & Distribution implementations for clients in retail, manufacturing, and professional services. Configure end-to-end order-to-cash processes in SAP S/4HANA and help clients transform their sales operations.',
+        responsibilities: ['Configure and implement SAP SD module in S/4HANA','Map and optimise order-to-cash business processes','Prepare functional specifications and conduct testing cycles','Integrate SD with FICO and MM for end-to-end process flows','Deliver end-user training and post-go-live support','Support pre-sales activities and solution scoping'],
+        requirements: ['3+ years SAP SD consulting experience','Strong understanding of order-to-cash business processes','Experience with SAP S/4HANA pricing, shipping, and billing','Cross-module integration knowledge (FICO, MM)','Excellent client communication and workshop facilitation skills','SAP SD certification is an advantage']
+      }
+    ];
+
+    var jobsCache = [];
+
+    async function loadJobsFromDatabase() {
+      try {
+        var response = await fetch('api/public_data.php', { cache: 'no-store' });
+        var data = await response.json();
+        jobsCache = data && data.success && Array.isArray(data.jobs) && data.jobs.length ? data.jobs : DEFAULT_JOBS;
+      } catch (err) {
+        jobsCache = DEFAULT_JOBS;
+      }
+    }
+
+    /* ── RENDER JOB CARDS ─────────────────────────────────────────────── */
+    function renderJobCards() {
+      var jobs = jobsCache;
+      var container = document.getElementById('jobsContainer');
+      if (!container) return;
+      if (!jobs.length) {
+        container.innerHTML = '<p style="text-align:center;color:#6b7280;padding:3rem 0;">No open positions at the moment. Check back soon!</p>';
+        return;
+      }
+      var locIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+      var timeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+      var html = '';
+      jobs.forEach(function (j) {
+        html += '<div class="job-card fade-in">' +
+          '<div class="job-card-header"><div>' +
+          '<h3>' + esc(j.title) + '</h3>' +
+          '<div class="job-card-meta">' +
+          '<span>' + locIcon + esc(j.location) + '</span>' +
+          '<span>' + timeIcon + esc(j.type) + '</span>' +
+          '</div></div>' +
+          '<button class="btn-primary apply-btn" data-job-id="' + esc(j.id) + '">Apply Now</button>' +
+          '</div>' +
+          '<p>' + esc(j.description) + '</p>' +
+          '<h4>Requirements</h4><ul>' +
+          j.requirements.map(function(r){ return '<li><span class="dot"></span>' + esc(r) + '</li>'; }).join('') +
+          '</ul></div>';
+      });
+      container.innerHTML = html;
+      // Attach listeners to new buttons
+      container.querySelectorAll('.apply-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { openModal(btn.getAttribute('data-job-id')); });
+      });
+    }
+
+    function esc(s) {
+      if (s === null || s === undefined) return '';
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // Render on page load
+    loadJobsFromDatabase().then(renderJobCards);
+
+    /* ── MODAL DATA (now keyed by job ID from SQLite API) ─────────────── */
+
+    // ── Element refs ──────────────────────────────────────────────────────
+    var overlay      = document.getElementById('applyOverlay');
+    var closeBtn     = document.getElementById('modalCloseBtn');
+    var cancelBtn    = document.getElementById('modalCancelBtn');
+    var form         = document.getElementById('applyForm');
+    var successBox   = document.getElementById('applySuccess');
+    var cvInput      = document.getElementById('cv-file-input');
+    var cvFileName   = document.getElementById('cvFileName');
+    var uploadText   = document.getElementById('uploadBtnText');
+    var submitBtn    = form.querySelector('.btn-modal-submit');
+
+    // ── Open modal ────────────────────────────────────────────────────────
+    function openModal(jobId) {
+      var jobs = jobsCache;
+      var job = jobs.find(function(j){ return j.id === jobId; });
+      if (!job) return;
+
+      document.getElementById('modalJobTitle').textContent     = job.title;
+      document.getElementById('modalLocationText').textContent = job.location;
+      document.getElementById('modalTypeText').textContent     = job.type;
+      document.getElementById('formJobTitle').value            = job.title;
+      document.getElementById('successJobTitle').textContent   = job.title;
+      document.getElementById('modalDescription').textContent  = job.description;
+
+      var respList = document.getElementById('modalResponsibilities');
+      respList.innerHTML = '';
+      (job.responsibilities || []).forEach(function (r) { var li = document.createElement('li'); li.textContent = r; respList.appendChild(li); });
+
+      var reqList = document.getElementById('modalRequirements');
+      reqList.innerHTML = '';
+      (job.requirements || []).forEach(function (r) { var li = document.createElement('li'); li.textContent = r; reqList.appendChild(li); });
+
+      form.reset();
+      cvFileName.textContent = '';
+      uploadText.textContent = 'Click to browse or drag & drop';
+      form.style.display = '';
+      successBox.style.display = 'none';
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('applyModal').scrollTop = 0;
+    }
+
+    // ── Close modal ───────────────────────────────────────────────────────
+    function closeModal() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal(); });
+
+    // ── CV file name display ──────────────────────────────────────────────
+    cvInput.addEventListener('change', function () {
+      if (cvInput.files && cvInput.files[0]) {
+        var f = cvInput.files[0];
+        if (f.size > 5 * 1024 * 1024) {
+          alert('File is too large. Please upload a file under 5 MB.');
+          cvInput.value = '';
+          cvFileName.textContent = '';
+          uploadText.textContent = 'Click to browse or drag & drop';
+          return;
+        }
+        cvFileName.textContent = '\u2714 ' + f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)';
+        uploadText.textContent = 'File selected — click to change';
+      }
+    });
+
+    // ── Form submission ───────────────────────────────────────────────────
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      var requiredFields = form.querySelectorAll('[required]');
+      var allValid = true;
+      requiredFields.forEach(function (field) {
+        if (!field.value.trim()) { field.style.borderColor = '#e53935'; allValid = false; }
+        else { field.style.borderColor = ''; }
+      });
+      if (!allValid) return;
+
+      // Keep compatibility fields in sync for existing integrations.
+      document.getElementById('applyReplyTo').value = document.getElementById('formEmail').value.trim();
+      document.getElementById('applySubject').value = 'Application: ' + document.getElementById('formJobTitle').value + ' - Synergy-GTS Careers';
+
+      var originalSubmitHTML = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Submitting...';
+
+      try {
+        var formData = new FormData(form);
+        var response = await fetch('api/upload_application.php', {
+          method: 'POST',
+          body: formData
+        });
+        var data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Submission failed.');
+        }
+
+        form.style.display = 'none';
+        successBox.style.display = 'block';
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        alert(err.message && err.message !== 'Failed to fetch'
+          ? err.message
+          : 'Could not send your application right now. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalSubmitHTML;
+      }
+    });
+
+  }());
+
+  // ── LEGACY PLACEHOLDER — kept for compatibility (no longer used) ──────
+  (function () {
+    // This block intentionally left blank.
+    // All job rendering and form logic is now handled by the block above.
+  }());
+  </script>
 
 </body>
 </html>

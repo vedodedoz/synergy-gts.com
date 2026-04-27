@@ -50,8 +50,8 @@
     <div class="pattern-bg"></div>
     <div class="hero-content">
       <span class="section-label">Get In Touch</span>
-      <h1>Contact Us</h1>
-      <p>Ready to transform your enterprise? Let's discuss how Synergy-GTS can help you achieve your digital transformation goals.</p>
+      <h1 data-content-key="contact.hero.title">Contact Us</h1>
+      <p data-content-key="contact.hero.subtitle">Ready to transform your enterprise? Let's discuss how Synergy-GTS can help you achieve your digital transformation goals.</p>
     </div>
   </section>
 
@@ -64,10 +64,17 @@
         <div class="fade-in">
           <h2 style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;color:var(--navy-900);margin-bottom:0.75rem;line-height:1.2;">Send Us a Message</h2>
           <p style="color:var(--gray-600);line-height:1.7;margin-bottom:2rem;">Fill out the form below and our team will respond within 24 business hours.</p>
-          <form id="contactForm">
+          <form id="contactForm" novalidate>
+            <!-- <input type="hidden" name="access_key" value="55f4550a-47b4-4397-9fca-953f1c473af6"> -->
+            <input type="hidden" name="access_key" value="90bd6636-0774-4329-9339-07e0e699ae55">
+            <input type="hidden" name="subject" value="New Project Inquiry — Synergy-GTS Website">
+            <input type="hidden" name="from_name" value="Synergy-GTS Contact Form">
+            <input type="hidden" name="replyto" id="replyto" value="">
+            <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
             <div class="form-group">
               <label for="fullName">Full Name <span class="required">*</span></label>
-              <input type="text" id="fullName" name="fullName" class="form-input" placeholder="John Smith" required>
+              <input type="text" id="fullName" name="name" class="form-input" placeholder="John Smith" required>
             </div>
             <div class="form-group">
               <label for="email">Email <span class="required">*</span></label>
@@ -75,9 +82,21 @@
             </div>
             <div class="form-group">
               <label for="projectRequirements">Project Requirements <span class="required">*</span></label>
-              <textarea id="projectRequirements" name="projectRequirements" class="form-textarea" placeholder="Tell us about your project, challenges, and what you're looking to achieve..." required></textarea>
+              <textarea id="projectRequirements" name="message" class="form-textarea" placeholder="Tell us about your project, challenges, and what you're looking to achieve..." required></textarea>
             </div>
-            <button type="submit" class="form-submit">
+
+            <!-- Success message -->
+            <div id="formSuccess" style="display:none;background:#ecfdf5;border:1px solid #6ee7b7;border-radius:0.75rem;padding:1.25rem 1.5rem;margin-bottom:1.25rem;color:#065f46;font-weight:600;font-size:0.95rem;display:none;align-items:center;gap:0.75rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;flex-shrink:0;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Message sent successfully! We'll respond within 24 business hours.</span>
+            </div>
+            <!-- Error message -->
+            <div id="formError" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:0.75rem;padding:1.25rem 1.5rem;margin-bottom:1.25rem;color:#991b1b;font-weight:600;font-size:0.95rem;align-items:center;gap:0.75rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="formErrorMsg">Something went wrong. Please try again.</span>
+            </div>
+
+            <button type="submit" class="form-submit" id="submitBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Submit Request
             </button>
@@ -136,6 +155,17 @@
             </div>
           </div>
 
+          <!-- Calgary -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h3>Calgary, Alberta</h3>
+              <p>Prairie Office — Serving Central Canada</p>
+            </div>
+          </div>
+
           <!-- What We Offer -->
           <div class="contact-services-card">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -147,6 +177,94 @@
       </div>
     </div>
   </section>
+
+  <!-- Office Locations Map -->
+  <section class="section" style="background:var(--gray-50,#f8fafc);padding:5rem 0;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <span class="section-label">Our Locations</span>
+        <h2 style="font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:800;color:var(--navy-900);margin:0.5rem 0 1rem;line-height:1.2;">Find Us Across Canada</h2>
+        <p style="color:var(--gray-600);max-width:560px;margin:0 auto;line-height:1.7;">Three offices strategically located to serve enterprises coast to coast.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div style="display:flex;justify-content:center;gap:0.75rem;margin-bottom:1.75rem;flex-wrap:wrap;">
+        <button class="map-tab-btn active" onclick="switchMap('toronto',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Toronto, ON
+        </button>
+        <button class="map-tab-btn" onclick="switchMap('vancouver',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Vancouver, BC
+        </button>
+        <button class="map-tab-btn" onclick="switchMap('calgary',this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Calgary, AB
+        </button>
+      </div>
+
+      <!-- Map Iframes -->
+      <div style="border-radius:1rem;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);height:420px;position:relative;">
+        <iframe id="map-toronto" class="map-iframe" src="https://maps.google.com/maps?q=Toronto,+Ontario,+Canada&output=embed&z=13" width="100%" height="100%" style="border:0;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Toronto Office"></iframe>
+        <iframe id="map-vancouver" class="map-iframe" src="https://maps.google.com/maps?q=Vancouver,+British+Columbia,+Canada&output=embed&z=13" width="100%" height="100%" style="border:0;display:none;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Vancouver Office"></iframe>
+        <iframe id="map-calgary" class="map-iframe" src="https://maps.google.com/maps?q=Calgary,+Alberta,+Canada&output=embed&z=13" width="100%" height="100%" style="border:0;display:none;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Calgary Office"></iframe>
+      </div>
+
+      <!-- Office Info Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem;">
+        <div style="background:#fff;border-radius:0.75rem;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:0.5rem;">
+          <h3 style="font-size:1.05rem;font-weight:700;color:var(--navy-900);margin:0;">Toronto, Ontario</h3>
+          <p style="color:var(--gray-600);font-size:0.9rem;margin:0;">Head Office — Eastern Canada</p>
+          <a href="https://maps.google.com/maps?q=Toronto,+Ontario,+Canada" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;color:var(--blue-600,#2563eb);font-weight:600;text-decoration:none;margin-top:0.5rem;">View on Google Maps →</a>
+        </div>
+        <div style="background:#fff;border-radius:0.75rem;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:0.5rem;">
+          <h3 style="font-size:1.05rem;font-weight:700;color:var(--navy-900);margin:0;">Vancouver, British Columbia</h3>
+          <p style="color:var(--gray-600);font-size:0.9rem;margin:0;">West Coast Office — Western Canada</p>
+          <a href="https://maps.google.com/maps?q=Vancouver,+British+Columbia,+Canada" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;color:var(--blue-600,#2563eb);font-weight:600;text-decoration:none;margin-top:0.5rem;">View on Google Maps →</a>
+        </div>
+        <div style="background:#fff;border-radius:0.75rem;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;flex-direction:column;gap:0.5rem;">
+          <h3 style="font-size:1.05rem;font-weight:700;color:var(--navy-900);margin:0;">Calgary, Alberta</h3>
+          <p style="color:var(--gray-600);font-size:0.9rem;margin:0;">Prairie Office — Central Canada</p>
+          <a href="https://maps.google.com/maps?q=Calgary,+Alberta,+Canada" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;color:var(--blue-600,#2563eb);font-weight:600;text-decoration:none;margin-top:0.5rem;">View on Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .map-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      border: 2px solid var(--navy-200, #cbd5e1);
+      background: #fff;
+      color: var(--navy-700, #334155);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .map-tab-btn:hover {
+      border-color: var(--blue-500, #3b82f6);
+      color: var(--blue-600, #2563eb);
+    }
+    .map-tab-btn.active {
+      background: var(--blue-600, #2563eb);
+      border-color: var(--blue-600, #2563eb);
+      color: #fff;
+    }
+  </style>
+
+  <script>
+    function switchMap(city, btn) {
+      document.querySelectorAll('.map-iframe').forEach(function(f) { f.style.display = 'none'; });
+      document.querySelectorAll('.map-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.getElementById('map-' + city).style.display = 'block';
+      btn.classList.add('active');
+    }
+  </script>
 
   <footer class="footer">
     <div class="footer-main">
@@ -161,12 +279,13 @@
         </div>
         <div><h3>Quick Links</h3><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="industries.html">Industries</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li></ul></div>
         <div><h3>Our Services</h3><ul class="footer-links"><li><a href="services.html">SAP S/4HANA Implementation</a></li><li><a href="services.html">SAP Migration &amp; Conversion</a></li><li><a href="services.html">SAP Functional Consulting</a></li><li><a href="services.html">SAP Cloud Integration</a></li><li><a href="services.html">SAP BTP Development</a></li><li><a href="services.html">Treasury &amp; Risk Management</a></li></ul></div>
-        <div><h3>Contact Us</h3><ul class="footer-contact"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Toronto, Ontario<br>Vancouver, British Columbia</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:inquiries@synergy-gts.com ">inquiries@synergy-gts.com </a></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Available Mon-Fri 9am-6pm EST</span></li></ul></div>
+        <div><h3>Contact Us</h3><ul class="footer-contact"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Toronto, Ontario<br>Vancouver, British Columbia<br>Calgary, Alberta</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:inquiries@synergy-gts.com ">inquiries@synergy-gts.com </a></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Available Mon-Fri 9am-6pm EST</span></li></ul></div>
       </div>
     </div>
     <div class="footer-bottom"><div class="footer-bottom-inner"><p>&copy; 2026 Synergy-GTS. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div></div></div>
   </footer>
   <script src="js/main.js"></script>
+  <script src="js/site-data.js"></script>
 
 </body>
 </html>

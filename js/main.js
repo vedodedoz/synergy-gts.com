@@ -188,32 +188,64 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // CONTACT FORM
+  // CONTACT FORM — Web3Forms real email delivery
   // ==========================================
   const contactForm = document.getElementById('contactForm');
 
   if (contactForm) {
+    // Keep replyto in sync with email field
+    const emailInput = document.getElementById('email');
+    const replytoInput = document.getElementById('replyto');
+    if (emailInput && replytoInput) {
+      emailInput.addEventListener('input', () => {
+        replytoInput.value = emailInput.value;
+      });
+    }
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const submitBtn = contactForm.querySelector('.form-submit');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+      const submitBtn = document.getElementById('submitBtn');
+      const successBox = document.getElementById('formSuccess');
+      const errorBox   = document.getElementById('formError');
+      const errorMsg   = document.getElementById('formErrorMsg');
+
+      // Hide any previous feedback
+      successBox.style.display = 'none';
+      errorBox.style.display   = 'none';
+
+      // Loading state
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;animation:spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Sending...';
       submitBtn.disabled = true;
 
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
 
-      submitBtn.innerHTML = '&#10003; Message Sent!';
-      submitBtn.style.background = '#059669';
-
-      contactForm.reset();
-
-      setTimeout(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.style.background = '';
+        if (data.success) {
+          successBox.style.display = 'flex';
+          contactForm.reset();
+          if (replytoInput) replytoInput.value = '';
+          submitBtn.innerHTML = originalHTML;
+          submitBtn.disabled = false;
+          // Scroll success message into view
+          successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        errorMsg.textContent = err.message && err.message !== 'Failed to fetch'
+          ? err.message
+          : 'Network error — please check your connection and try again.';
+        errorBox.style.display = 'flex';
+        submitBtn.innerHTML = originalHTML;
         submitBtn.disabled = false;
-      }, 3000);
+      }
     });
   }
 
